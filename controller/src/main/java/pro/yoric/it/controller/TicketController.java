@@ -31,29 +31,28 @@ public class TicketController
             Date startDate = ticketDao.getTicketByNumber(number).getDate();
             ticketDao.removeByNumber(number);
 
-            long seconds   = (currentDate.getTime() - startDate.getTime())/1000;
+            long seconds = (currentDate.getTime() - startDate.getTime()) / 1000;
 
             messeges.add(
-                    "Your stay in our parking: "
-                );
+                "Your stayed in our parking: "
+            );
             messeges.add(
-                    seconds + " seconds"
-                );
-
+                seconds + " seconds"
+            );
         }
         else
         {
-//                map.put(number, currentDate);
-
             Ticket ticket = new Ticket();
             ticket.setLicensePlateNumber(number);
             ticket.setDate(currentDate);
             ticketDao.saveNewTicket(ticket);
 
             messeges.add(
-                    "Welcome to our parking!"
+                "Welcome to our Parking!"
             );
-            messeges.add(String.valueOf(currentDate));
+            messeges.add(
+                currentDate.toString()
+            );
         }
         return messeges;
     }

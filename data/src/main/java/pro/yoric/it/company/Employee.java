@@ -34,15 +34,15 @@ public class Employee
     private Company company;
 
     @ManyToMany
-    @JoinTable(name        = "T_EMPLOYEE_MEETINGS",
+    @JoinTable(
+        name               = "T_EMPLOYEE_MEETINGS",
         joinColumns        = @JoinColumn(name = "EMPLOYEE_ID"),
         inverseJoinColumns = @JoinColumn(name = "MEETING_ID")
     )
     private List<Meeting> meetings = new ArrayList<>();
 
     // CONSTRUCTORS
-    public Employee(){}
-
+    public Employee(){ }
     public Employee(
             String firstName,
             String secondName,
@@ -91,8 +91,7 @@ public class Employee
     }
     public void setEmployeeDetails(EmployeeDetails employeeDetails)
     {
-//        employeeDetails.setEmployee(this); // not work if we use library LAMBOCK
-        this.employeeDetails = employeeDetails;
+        this.employeeDetails = employeeDetails; //        employeeDetails.setEmployee(this); // not work if we use library LAMBOCK
     }
     public void setCompany(Company company)
     {

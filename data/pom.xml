@@ -1,16 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version  = "1.0"
+      encoding = "UTF-8"
+?>
+<project xmlns              = "http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi          = "http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation = "http://maven.apache.org/POM/4.0.0
+                               http://maven.apache.org/xsd/maven-4.0.0.xsd"
+>
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <artifactId>Parking</artifactId>
         <groupId>pro.yoric</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
     <artifactId>data</artifactId>
 
+    <packaging>jar</packaging>
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
@@ -22,17 +28,11 @@
             <artifactId>hibernate-core</artifactId>
             <version>5.6.1.Final</version>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.2</version>
-            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -42,12 +42,12 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
-            <version>RELEASE</version>
-            <scope>compile</scope>
-        </dependency> -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -56,6 +56,7 @@
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.3.5</version>
+
                 <executions>
                     <execution>
                         <id>create_prod_db</id>
@@ -63,6 +64,7 @@
                         <goals>
                             <goal>update</goal>
                         </goals>
+
                         <configuration>
                             <url>jdbc:mysql://localhost:3306/parking?createDatabaseIfNotExist=true</url>
                             <username>root</username>
@@ -78,6 +80,7 @@
                         <goals>
                             <goal>update</goal>
                         </goals>
+
                         <configuration>
                             <url>jdbc:mysql://localhost:3306/parking_test?createDatabaseIfNotExist=true</url>
                             <username>root</username>

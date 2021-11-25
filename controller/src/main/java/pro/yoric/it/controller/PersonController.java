@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PersonController
 {
-    private PersonDao personDao;
+    private final PersonDao personDao;
 
     public PersonController()
     {
@@ -19,16 +19,22 @@ public class PersonController
     {
         List<String> validationErrors = new ArrayList<>();
 
+        // Validate input params
         if (    person.getName() == null
              || person.getName().isEmpty())
             validationErrors.add("Name is empty");
 
-        if(person.getId() == 0)
-            person.setId(Math.round(Math.random()*1000));
+        if(person.getId() == null)
+            person.setId(Math.round(Math.random() * 1000));
 
         if(validationErrors.isEmpty())
             personDao.savePerson(person);
 
         return validationErrors;
+    }
+
+    public List<Person> getAllPersons()
+    {
+        return personDao.readPersons();
     }
 }

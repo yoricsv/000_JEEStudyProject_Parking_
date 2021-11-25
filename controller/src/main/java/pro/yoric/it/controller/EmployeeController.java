@@ -9,7 +9,7 @@ public class EmployeeController
 
     public boolean save(Employee employee)
     {
-        // CHECK GET VALUE employeeDao.get
+        // Check employee input value
 
         return employeeDao.saveEmployee(employee);
     }

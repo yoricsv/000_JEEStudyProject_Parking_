@@ -18,33 +18,35 @@ public class Company
     @Column(name = "COMPANY_NAME")
     private String companyName;
 
+    // FIELDS Relations
     @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
     private List<Employee> employees;
 
+    // CONSTRUCTORS
+    public Company(){ }
     public Company(String companyName) {
         this.companyName = companyName;
     }
 
+    // GETTERS
     public String getId()
     {
         return id;
     }
-
     public String getCompanyName()
     {
         return companyName;
     }
-
-    public void setCompanyName(String companyName)
-    {
-        this.companyName = companyName;
-    }
-
     public List<Employee> getEmployees()
     {
         return employees;
     }
 
+    // SETTERS
+    public void setCompanyName(String companyName)
+    {
+        this.companyName = companyName;
+    }
     public void setEmployees(List<Employee> employees)
     {
         this.employees = employees;
