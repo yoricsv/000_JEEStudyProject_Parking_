@@ -6,22 +6,25 @@ import java.sql.SQLException;
 
 public class DataSource
 {
-    private boolean useTestDataSource;
-
+    // CONSTRUCTOR
     public DataSource(boolean useTestDataSource)
     {
         this.useTestDataSource = useTestDataSource;
     }
 
     protected Connection getConnection()
-            throws SQLException
+        throws SQLException
     {
-        return DriverManager.getConnection(
-                useTestDataSource ?
-                    "jdbc:mysql://localhost:3306/parking_test" :
-                    "jdbc:mysql://localhost:3306/parking",
+        return
+            DriverManager
+            .getConnection(
+                useTestDataSource                           ?
+                "jdbc:mysql://localhost:3306/parking_test"  :
+                "jdbc:mysql://localhost:3306/parking",
                 "root",
                 "root"
-        );
+            );
     }
+
+    private final boolean useTestDataSource;
 }

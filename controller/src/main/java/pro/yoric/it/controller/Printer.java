@@ -1,12 +1,10 @@
 package pro.yoric.it.controller;
 
-import pro.yoric.it.data.Ticket;
-
 public class Printer
 {
-    public Ticket printTicket(String licenseNumber, String date)
+    public Ticket_TO_DELETE printTicket(String licenseNumber, String date)
     {
-        Ticket ticket = new Ticket();
+        Ticket_TO_DELETE ticket = new Ticket_TO_DELETE();
         return ticket;
 
     }

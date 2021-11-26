@@ -35,6 +35,6 @@ public class PersonController
 
     public List<Person> getAllPersons()
     {
-        return personDao.readPersons();
+        return personDao.readPerson();
     }
 }

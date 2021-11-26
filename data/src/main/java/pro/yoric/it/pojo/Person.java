@@ -8,19 +8,22 @@ import java.io.Serializable;
 public class Person
     implements Serializable
 {
+    // FIELDS
     @Id
     @Column (name = "id")
-    private long id;
+    private Long id;
 
     @Column (name = "name")
     private String name;
 
-    @Column (name = "second_name")
+    @Column (name = "second_name", length = 500)
     private String secondName;
 
+    // CONSTRUCTORS
     public Person(){ }
 
-    public long getId()
+    // GETTERS
+    public Long getId()
     {
         return id;
     }
@@ -33,7 +36,8 @@ public class Person
         return secondName;
     }
 
-    public void setId(long id)
+    // SETTERS
+    public void setId(Long id)
     {
         this.id = id;
     }
