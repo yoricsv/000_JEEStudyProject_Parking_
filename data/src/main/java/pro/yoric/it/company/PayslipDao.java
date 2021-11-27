@@ -10,8 +10,7 @@ import java.math.BigDecimal;
 
 public class PayslipDao
 {
-    private final SessionFactory sessionFactory;
-
+    // CONSTRUCTORS
     public PayslipDao()
     {
         sessionFactory = SessionFactoryHolder.getSessionFactoryCompany();
@@ -21,22 +20,32 @@ public class PayslipDao
         this.sessionFactory = sessionFactory;
     }
 
-    public BigDecimal getAnnualSalary(Employee employeeId, short year)
+    public BigDecimal getAnnualSalary(String employeeId, short year)
     {
         Session session = sessionFactory.openSession();
 
         final Query query =
-        session.createQuery(
-                "select sum (p.amount) from T_PAYSLIP p " +
-                "where p.employee.id=:EMPLOYEE_ID and p.year=:YEAR"
+            session.createQuery(
+                "SELECT "                                +
+                    "SUM "                               +
+                        "(p.amount) "                    +
+                "FROM "                                  +
+                    "t_payslip p "                       +
+                "WHERE "                                 +
+                        "p.employee.id=:employee_id "    +
+                    "AND "                               +
+                        "p.year=:year"
             );
 
-        query.setParameter("EMPLOYEE_ID", employeeId);
-        query.setParameter("YEAR", year);
+        query.setParameter("employee_id", employeeId);
+        query.setParameter("year", year);
 
         BigDecimal sum = (BigDecimal) query.uniqueResult();
-        session.close();
 
+        session.close();
         return sum;
     }
+
+    // FIELDS
+    private final SessionFactory sessionFactory;
 }

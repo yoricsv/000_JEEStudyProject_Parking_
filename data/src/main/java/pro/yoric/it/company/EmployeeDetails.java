@@ -4,37 +4,43 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "T_EMPLOYEE_DETALES")
+@Table(name = "t_employee_details")
 public class EmployeeDetails
 {
     // FIELDS
     @Id
-    @Column(name = "EMPLOYEE_DETAILS_ID")
-    @GeneratedValue(generator = "uuid-generator" )
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid")
+    @Column(name  = "employee_details_id")
+    @GeneratedValue(
+        generator = "uuid-generator"
+    )
+    @GenericGenerator(
+        name      = "uuid-generator",
+        strategy  = "uuid"
+    )
     private String id;
 
-    @Column(name = "ADDRESS") //not necessary might generate by hibernate
+    @Column(name  = "address")
     private String address;
 
     // FIELDS Relations
     @OneToOne
     private  Employee employee;
 
+
     // CONSTRUCTORS
     public EmployeeDetails(){}
-
     public EmployeeDetails(String address)
     {
         this.address = address;
     }
 
+
     // GETTERS
-    public String getId()
+    public String   getId()
     {
         return id;
     }
-    public String getAddress()
+    public String   getAddress()
     {
         return address;
     }
@@ -42,6 +48,7 @@ public class EmployeeDetails
     {
         return employee;
     }
+
 
     // SETTERS
     public void setAddress(String address)

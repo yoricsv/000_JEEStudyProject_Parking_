@@ -7,10 +7,12 @@ import org.dbunit.dataset.xml.FlatXmlDataSetBuilder;
 import org.dbunit.ext.mysql.MySqlConnection;
 import org.dbunit.operation.DatabaseOperation;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import java.io.IOException;
+
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,14 +20,9 @@ import java.util.logging.Logger;
 public class BaseDbUnitTest
     extends BaseTest
 {
-
+    // INSTANCES
     private IDatabaseConnection connection;
     private IDataSet            dataSet;
-
-    private final static Logger log =
-        Logger.getLogger(
-            BaseDbUnitTest.class.getName()
-        );
 
     public void cleanInsert(String resourceName)
     {
@@ -37,17 +34,19 @@ public class BaseDbUnitTest
                     new MySqlConnection(
                         MySqlDataSource
                         .getTestConnection(),
-                        "company_test"
-                    );
+                            "company_test"
+                        );
             }
+
             dataSet =
                 new FlatXmlDataSetBuilder()
-                        .build(
-                            BaseTest.class
-                            .getResourceAsStream(
-                                resourceName
-                            )
-                        );
+                    .build(
+                        BaseTest.class
+                        .getResourceAsStream(
+                            resourceName
+                        )
+                    );
+
             DatabaseOperation.CLEAN_INSERT.execute(
                 connection,
                 dataSet
@@ -71,6 +70,7 @@ public class BaseDbUnitTest
                 connection,
                 dataSet
             );
+
             connection.close();
         }
         catch (SQLException | DatabaseUnitException e)
@@ -82,32 +82,61 @@ public class BaseDbUnitTest
             );
         }
     }
+
+    // LOGGER
+    private final static Logger log =
+        Logger.getLogger(
+            BaseDbUnitTest.class.getName()
+        );
 }
 
 class MySqlDataSource
 {
+    // INSTANCES
+    private static final Properties properties = new Properties();
 
+    public static Connection getTestConnection()
+            throws SQLException
+    {
+        return
+            DriverManager.getConnection(
+                properties.getProperty("url"),
+                properties
+            );
+    }
+
+    // LOGGER
     private final static Logger log =
         Logger
         .getLogger(
             MySqlDataSource.class.getName()
         );
-    private static Properties properties = new Properties();
 
-    static {
-        try {
-            properties.load(MySqlDataSource.class
-                    .getResourceAsStream("/company_test.ds.properties"));
-            Class.forName(properties.getProperty("jdbc.drivers"));
-        } catch (ClassNotFoundException | IOException e) {
-            log.log(Level.SEVERE, e.getMessage(), e);
-        }
-    }
+    static
+    {
+        try
+        {
+            properties.load(
+                MySqlDataSource.class
+                .getResourceAsStream(
+                    "/company_test.ds.properties"
+                )
+            );
 
-    public static Connection getTestConnection() throws SQLException {
-        return DriverManager.getConnection(
-                properties.getProperty("url"),
+            Class.forName(
                 properties
-        );
+                .getProperty(
+                    "jdbc.drivers"
+                )
+            );
+        }
+        catch (ClassNotFoundException | IOException e)
+        {
+            log.log(
+                Level.SEVERE,
+                e.getMessage(),
+                e
+            );
+        }
     }
 }

@@ -26,5 +26,6 @@ public class DataSource
             );
     }
 
+    // FIELDS
     private final boolean useTestDataSource;
 }

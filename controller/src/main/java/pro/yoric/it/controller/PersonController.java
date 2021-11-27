@@ -8,13 +8,21 @@ import java.util.List;
 
 public class PersonController
 {
-    private final PersonDao personDao;
-
+    // CONSTRUCTORS
     public PersonController()
     {
         personDao = new PersonDao();
     }
 
+
+    // GETTERS
+    public List<Person> getAllPersons()
+    {
+        return personDao.readPerson();
+    }
+
+
+    // SETTERS
     public List<String> saveNewPerson(Person person)
     {
         List<String> validationErrors = new ArrayList<>();
@@ -25,7 +33,11 @@ public class PersonController
             validationErrors.add("Name is empty");
 
         if(person.getId() == null)
-            person.setId(Math.round(Math.random() * 1000));
+            person.setId(
+                Math.round(
+                    Math.random() * 1000
+                )
+            );
 
         if(validationErrors.isEmpty())
             personDao.savePerson(person);
@@ -33,8 +45,6 @@ public class PersonController
         return validationErrors;
     }
 
-    public List<Person> getAllPersons()
-    {
-        return personDao.readPerson();
-    }
+    // FIELDS
+    private final PersonDao personDao;
 }

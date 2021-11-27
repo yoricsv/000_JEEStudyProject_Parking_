@@ -6,11 +6,20 @@ import org.junit.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
+
+/**
+ * NOTE: if PATH without "/" find resource in the same name package
+ * NOTE: if PATH with    "/" find resource start from package root
+ *
+ * EXAMPLE: cleanInsert("/pro/yoric/it/company/PayslipDaoTest.xml");
+ * There is we transmit prepared data to check units operating
+ */
 
 public class PayslipDaoTest
     extends BaseDbUnitTest
 {
+    // INSTANCES
     private PayslipDao payslipDao;
 
     @Before
@@ -22,16 +31,10 @@ public class PayslipDaoTest
     @Test
     public void getAnnualSalary()
     {
-        //Given
-        /**
-         * @NOTE: if without "/" find resource in the same name package
-         * @NOTE: if with    "/" find resource start from root
-         *
-         * cleanInsert("/pro/yoric/it/company/PayslipDaoTest.xml");
-         */
+        // GIVEN
         cleanInsert("PayslipDaoTest.xml");
 
-        //When
+        // WHEN
         BigDecimal res =
             payslipDao
             .getAnnualSalary(
@@ -39,7 +42,7 @@ public class PayslipDaoTest
                 (short) 2021
             );
 
-        //Then
+        // THEN
         assertEquals(new BigDecimal("24420.00"), res);
     }
 
