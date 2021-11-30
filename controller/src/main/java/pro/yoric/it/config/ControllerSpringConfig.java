@@ -1,17 +1,13 @@
 package pro.yoric.it.config;
 
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.*;
 import pro.yoric.it.company.EmployeeDao;
 import pro.yoric.it.company.PayslipDao;
 import pro.yoric.it.controller.EmployeeController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 
 //import org.springframework.stereotype.Component; // Need for use @Component("myFirstBean") and @Configuration OR see below
 
@@ -24,8 +20,12 @@ import java.util.Arrays;
 @Getter
 @Configuration("myFirstBean")
 @ComponentScan(basePackages = "pro.yoric.it.controller")
+@PropertySource("classpath:/controller.properties")
 public class ControllerSpringConfig
 {
+    @Value("default.working.dir") // Forbidden use '--' in name
+    private String defaultWorkingDir;
+
     @Value("1")                                                 // property value injection
     private String id;
 
@@ -51,6 +51,9 @@ public class ControllerSpringConfig
         System.out.println(myFirstBean);
 
         System.out.println("My first bean Id" + myFirstBean.getId()); // need add Lombok and Annotation
+
+
+        System.out.println("Default working dir :" + myFirstBean.getDefaultWorkingDir());
     }
 
     @Bean // always PUBLIC (Let to registering class as bean)

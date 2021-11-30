@@ -36,6 +36,20 @@
             <scope>compile</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.dbunit</groupId>
+            <artifactId>dbunit</artifactId>
+            <version>2.7.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- SPRING DEPENDENCY BEGIN -->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -53,6 +67,12 @@
             <version>5.3.12</version>
         </dependency>
         <!-- SPRING DEPENDENCY END-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.13</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <!-- ADD LAMBOK (ADD CLASS in binary into output file)-->

@@ -43,6 +43,12 @@
             <artifactId>spring-beans</artifactId>
             <version>5.3.12</version>
         </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.3.13</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- ADD LOMBOK BEGIN (ADD CLASS in binary into output file) -->
         <dependency>
