@@ -8,6 +8,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="ui" />
         <module name="data" />
+      </profile>
+      <profile name="Annotation profile for Parking" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.16/lombok-1.18.16.jar" />
+        </processorPath>
         <module name="controller" />
       </profile>
     </annotationProcessing>

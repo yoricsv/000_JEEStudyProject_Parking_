@@ -2,46 +2,54 @@ package pro.yoric.it.company;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 public class MeetingTest
     extends BaseTest
 {
     private static Meeting meeting(int count)
     {
-        return new Meeting("Subject " + count, new Date());
+        return
+            new Meeting(
+                "Subject " + count,
+                new Date()
+            );
     }
 
-    public static Employee employee (int count)
+    public static Employee employee(int count)
     {
-        return new Employee(
-            "Name" + count,
-            "SecondName" + count,
-            "+80292134112");
+        return
+            new Employee(
+                "Name" + count,
+                "SecondName" + count,
+                "+8029123456" + count
+            );
     }
 
     public static void addEmployeeToMeeting(
-            Meeting meeting,
+            Meeting        meeting,
             List<Employee> attendees
         )
     {
         for(Employee employee : attendees)
-        employee.getMeetings().add(meeting);
+            employee.getMeetings().add(meeting);
+
         meeting.setAttendees(attendees);
     }
 
-    @Test
+//    @Test
     public void saveMeetings()
     {
-        // Given
-        Meeting meeting1 = meeting(1);
-        Meeting meeting2 = meeting(2);
-        Meeting meeting3 = meeting(3);
+        // GIVEN
+        Meeting  meeting1  = meeting(1);
+        Meeting  meeting2  = meeting(2);
+        Meeting  meeting3  = meeting(3);
 
         Employee employee1 = employee(1);
         Employee employee2 = employee(2);
@@ -53,7 +61,7 @@ public class MeetingTest
         addEmployeeToMeeting(meeting2, List.of(employee1, employee3));
         addEmployeeToMeeting(meeting3, List.of(employee2, employee4, employee5));
 
-        // When
+        // WHEN
         Session session = sessionFactory.openSession();
         final Transaction transaction = session.beginTransaction();
 
@@ -74,13 +82,15 @@ public class MeetingTest
         transaction.commit();
         session.close();
 
-        // Then
+        // THEN
         Session newSession = sessionFactory.openSession();
+
         Meeting savedMeeting3 = newSession.get(Meeting.class, mId3);
 
         // Check
         assertNotNull(savedMeeting3);
-//        assertNotNull();
+        assertEquals(3, savedMeeting3.getAttendees().size());
+
         newSession.close();
     }
 }

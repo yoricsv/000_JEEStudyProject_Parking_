@@ -6,21 +6,30 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "T_COMPANY")
+@Table(name = "t_company")
 public class Company
 {
     @Id
-    @Column(name = "COMPANY_ID")
-    @GeneratedValue(generator = "uuid-generator")
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid")
+    @Column(name  = "company_id")
+    @GeneratedValue(
+        generator = "uuid-generator"
+    )
+    @GenericGenerator(
+        name      = "uuid-generator",
+        strategy  = "uuid"
+    )
     private String id;
 
-    @Column(name = "COMPANY_NAME")
+    @Column(name  = "company_name")
     private String companyName;
 
     // FIELDS Relations
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    @OneToMany(
+        mappedBy  = "company",
+        cascade   = CascadeType.ALL
+    )
     private List<Employee> employees;
+
 
     // CONSTRUCTORS
     public Company(){ }
@@ -28,12 +37,13 @@ public class Company
         this.companyName = companyName;
     }
 
+
     // GETTERS
-    public String getId()
+    public String         getId()
     {
         return id;
     }
-    public String getCompanyName()
+    public String         getCompanyName()
     {
         return companyName;
     }
@@ -41,6 +51,7 @@ public class Company
     {
         return employees;
     }
+
 
     // SETTERS
     public void setCompanyName(String companyName)

@@ -4,31 +4,40 @@ import pro.yoric.it.pojo.Ticket;
 import pro.yoric.it.data.TicketDao;
 
 import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 public class TicketController
 {
+    // INJECTIONS
     TicketDao ticketDao;
 
+    // CONSTRUCTORS
     public TicketController()
         throws ClassNotFoundException
     {
         ticketDao = new TicketDao();
     }
 
+    // CONTROLLERS
     public List<String> handleTicketRequest(
             String number,
-            Date currentDate
-    )
+            Date   currentDate
+        )
         throws SQLException
     {
         List<String> messeges = new ArrayList<>();
 
+        // Validation
         if (ticketDao.getTicketByNumber(number) != null)
         {
-            Date startDate = ticketDao.getTicketByNumber(number).getDate();
+            Date startDate =
+                ticketDao
+                .getTicketByNumber(number)
+                .getDate();
+
             ticketDao.removeByNumber(number);
 
             long seconds = (currentDate.getTime() - startDate.getTime()) / 1000;
@@ -43,8 +52,10 @@ public class TicketController
         else
         {
             Ticket ticket = new Ticket();
-            ticket.setLicensePlateNumber(number);
+
+            ticket.setCarNumber(number);
             ticket.setDate(currentDate);
+
             ticketDao.saveNewTicket(ticket);
 
             messeges.add(
@@ -54,7 +65,7 @@ public class TicketController
                 currentDate.toString()
             );
         }
+
         return messeges;
     }
-
 }

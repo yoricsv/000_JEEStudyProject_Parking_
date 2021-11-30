@@ -1,5 +1,6 @@
 package pro.yoric.it.data;
 
+import pro.yoric.it.company.BaseTest;
 import pro.yoric.it.pojo.Person;
 
 import org.hibernate.SessionFactory;
@@ -15,12 +16,14 @@ import org.junit.Test;
 import java.io.Serializable;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class PersonDaoTest
+//    extends BaseTest // If we're inherited from other class, might use without @BeforeClass
 {
+    // INSTANCES
     static SessionFactory sessionFactory;
-    PersonDao personDao;
+           PersonDao      personDao;
 
     @BeforeClass
     public static void init()
@@ -29,11 +32,13 @@ public class PersonDaoTest
             new StandardServiceRegistryBuilder()
                 .configure("hibernate.parking.cfg-test.xml")
                 .build();
+
         sessionFactory =
             new MetadataSources(reg)
                 .buildMetadata()
                 .buildSessionFactory();
     }
+
     @Before
 	public void setUp()
         throws Exception
@@ -41,18 +46,12 @@ public class PersonDaoTest
         personDao = new PersonDao(sessionFactory);
     }
 
-    @After
-    public void tearDown()
-        throws Exception
-    {
-		personDao = null;
-	}
-
     @Test
     public void savePerson()
     {
         // GIVEN
         Person person = new Person();
+
         person.setId(1001L);
         person.setName("Ivan");
         person.setSecondName("Petrov");
@@ -68,5 +67,12 @@ public class PersonDaoTest
         assertEquals(1, list.size());
 
         personDao.deletePerson(list.get(0));
+    }
+
+    @After
+    public void tearDown()
+            throws Exception
+    {
+        personDao = null;
     }
 }
