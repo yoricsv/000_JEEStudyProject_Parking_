@@ -1,5 +1,6 @@
 package pro.yoric.it.config;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import pro.yoric.it.company.EmployeeDao;
 import pro.yoric.it.company.PayslipDao;
 import pro.yoric.it.controller.EmployeeController;
@@ -15,6 +16,7 @@ import org.springframework.context.annotation.Configuration;
 //import org.springframework.stereotype.Component; // Need for use @Component("myFirstBean") and @Configuration OR see below
 
 import lombok.Getter;
+import pro.yoric.it.validator.EmployeeValidator;
 
 import java.util.Arrays;
 
@@ -27,8 +29,12 @@ public class ControllerSpringConfig
     @Value("1")                                                 // property value injection
     private String id;
 
-    @Autowired // to add auto configuration (to get any exception need add annotation into a class and need to register in context)
+    @Autowired // for automatic wiring (to get any exception need add annotation into a class and need to register in context)
     private EmployeeController employeeController;
+
+    @Autowired // for automatic wiring (to get any exception need add annotation into a class and need to register in context)
+    @Qualifier("employeeValidator")
+    private EmployeeValidator employeeValidator;
 
     public static void main(String... args)
     {
@@ -44,7 +50,7 @@ public class ControllerSpringConfig
         final ControllerSpringConfig myFirstBean = (ControllerSpringConfig) context.getBean("myFirstBean");
         System.out.println(myFirstBean);
 
-        System.out.println("My first bean Id" + myFirstBean.getId());
+        System.out.println("My first bean Id" + myFirstBean.getId()); // need add Lombok and Annotation
     }
 
     @Bean // always PUBLIC (Let to registering class as bean)
