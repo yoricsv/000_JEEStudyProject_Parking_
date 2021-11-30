@@ -31,11 +31,11 @@ public class PersonDao
         Session session = sessionFactory.openSession();
 
         List<Person> personList =
-            session
-            .createQuery(
-                "FROM t_person",
-                Person.class)
-            .list();
+                session
+                        .createQuery(
+                                "from Person",
+                                Person.class)
+                        .list();
 
         session.close();
 
@@ -47,25 +47,25 @@ public class PersonDao
     {
         Session session = sessionFactory.openSession();
 
-        Serializable serializableId = null;
-        Transaction  transaction    = null;
+        Serializable id = null;
+        Transaction  tr = null;
 
         try
         {
-            transaction    = session.beginTransaction();
-            serializableId = session.save(person);
-            transaction.commit();
+            tr = session.beginTransaction();
+            id = session.save(person);
+            tr.commit();
         }
         catch (Exception e)
         {
-            if (transaction != null) transaction.rollback();
+            if (tr != null) tr.rollback();
             e.printStackTrace();
         }
         finally
         {
             session.close();
         }
-        return serializableId;
+        return id;
     }
 
     /** DELETE */
@@ -73,17 +73,17 @@ public class PersonDao
     {
         Session session = sessionFactory.openSession();
 
-        Transaction  transaction = null;
+        Transaction  tr = null;
 
         try
         {
-            transaction = session.beginTransaction();
+            tr = session.beginTransaction();
             session.delete(person);
-            transaction.commit();
+            tr.commit();
         }
         catch (Exception e)
         {
-            if (transaction != null) transaction.rollback();
+            if (tr != null) tr.rollback();
             e.printStackTrace();
         }
         finally

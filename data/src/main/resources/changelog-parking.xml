@@ -11,7 +11,7 @@
 
     <changeSet id = "1" author = "yoric">
         <sql>
-            CREATE TABLE IF NOT EXISTS t_tickets
+            CREATE TABLE IF NOT EXISTS tickets
             (
                 ticket_date TIMESTAMP    NOT NULL,
                 car_number  VARCHAR(100) NOT NULL
@@ -21,26 +21,19 @@
 
     <changeSet id = "2" author = "yoric">
         <sql>
-            ALTER TABLE
-                t_tickets
-            ADD COLUMN
-                tickets_id INT NOT NULL;
-
-            ALTER TABLE
-                t_tickets
-            ADD PRIMARY KEY (tickets_id);
+            ALTER TABLE tickets ADD COLUMN id int NOT NULL;
+            ALTER TABLE tickets ADD PRIMARY KEY (id);
         </sql>
     </changeSet>
 
     <changeSet id = "3" author = "yoric">
         <sql>
-            CREATE TABLE IF NOT EXISTS t_person
+            CREATE TABLE IF NOT EXISTS persons
             (
-                name        VARCHAR(100) NOT NULL,
-                second_name VARCHAR(100) NOT NULL,
-                person_id   INT(11)      NOT NULL,
-
-                PRIMARY KEY (person_id)
+            name VARCHAR(100) NOT NULL,
+            second_name VARCHAR(100) NOT NULL,
+            id INT(11) NOT NULL,
+            PRIMARY KEY (id)
             );
         </sql>
     </changeSet>

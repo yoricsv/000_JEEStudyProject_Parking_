@@ -5,28 +5,28 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "t_tickets")
+@Table(name = "T_TICKETS")
 public class Ticket
     implements Serializable
 {
     // FIELDS
     @Id
-    @Column (name = "tickets_id")
+    @Column (name = "TICKETS_ID")
     private long id;
 
-    @Column (name = "car_number")
-    private String carNumber;
+    @Column (name = "CAR_NUMBER")
+    private String licensePlateNumber;
 
-    @Column (name = "ticket_date")
+    @Column (name = "TICKET_DATE")
     private   Date date;
 
     // GETTERS
-    public long   getId() { return id; }
-    public String getCarNumber()
+    public long getId() { return id; }
+    public String getLicensePlateNumber()
     {
-        return carNumber;
+        return licensePlateNumber;
     }
-    public Date   getDate()
+    public Date getDate()
     {
         return date;
     }
@@ -39,9 +39,9 @@ public class Ticket
     {
         this.date = date;
     }
-    public void setCarNumber(String carNumber)
+    public void setLicensePlateNumber(String licensePlateNumber)
     {
-        this.carNumber = carNumber;
+        this.licensePlateNumber = licensePlateNumber;
     }
 }
 

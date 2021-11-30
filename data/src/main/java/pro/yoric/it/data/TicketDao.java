@@ -25,7 +25,6 @@ public class TicketDao
     }
 
     /** READ */
-    // GETTERS
     public List<Ticket> readAllTickets()
         throws SQLException
     {
@@ -34,10 +33,10 @@ public class TicketDao
         Statement st = con.createStatement();
         ResultSet rs =
             st.executeQuery(
-                "SELECT "        +
+                "SELECT"    +
                     "* "        +
                 "FROM "         +
-                    "t_tickets"
+                    "tickets"
             );
 
         List<Ticket> ticketList = new ArrayList<>();
@@ -46,7 +45,7 @@ public class TicketDao
         {
             Ticket ticket = new Ticket();
 
-            ticket.setCarNumber(
+            ticket.setLicensePlateNumber(
                 rs.getString(
                     "car_number"
                 )
@@ -66,17 +65,17 @@ public class TicketDao
 
         return ticketList;
     }
-    public Ticket       getTicketByNumber(String licensePlateNumber)
+    public Ticket getTicketByNumber(String licensePlateNumber)
         throws SQLException
     {
         Connection con = dataSource.getConnection();
 
         String sql =
-            "SELECT "           +
-                "* "            +
-            "FROM "             +
-                "t_tickets "    +
-            "WHERE "            +
+            "SELECT "       +
+                "* "        +
+            "FROM "         +
+                "tickets "  +
+            "WHERE "        +
                 "car_number = '?'";
 
         PreparedStatement preparedStatement = con.prepareStatement(sql);
@@ -93,7 +92,7 @@ public class TicketDao
         {
             ticket = new Ticket();
 
-            ticket.setCarNumber(
+            ticket.setLicensePlateNumber(
                 rs.getString("car_number")
             );
             ticket.setDate(
@@ -109,27 +108,26 @@ public class TicketDao
     }
 
     /** UPDATE */
-    // SETTERS
     public void saveNewTicket(Ticket ticket)
         throws SQLException
     {
         Connection con = dataSource.getConnection();
 
 //        String sql =
-//            "INSERT INTO "             +
-//                 "parking.t_ticket "   +
-//            "VALUES ("                 +
-//                 ticket.getDate()      +
-//                 ", "                  +
-//                 ticket.getCarNumber() +
+//            "INSERT INTO "                      +
+//                 "parking.ticket "              +
+//            "VALUES ("                          +
+//                 ticket.getDate()               +
+//                 ", "                           +
+//                 ticket.getLicensePlateNumber() +
 //             ")";
         String sql =
-            "INSERT INTO "      +
-                "t_tickets "    +
-            "VALUES "           +
+            "INSERT INTO " +
+                "tickets " +
+            "VALUES " +
                 "(?, ?, ?)";
 
-        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        PreparedStatement preparedStatement =con.prepareStatement(sql); //        preparedStatement.setDate (1, new Date(ticket.getDate().getTime()));                       // get Date
 
         preparedStatement.setTimestamp(
             1,
@@ -139,7 +137,7 @@ public class TicketDao
         );  // get Data & Time
         preparedStatement.setString(
             2,
-            ticket.getCarNumber()
+            ticket.getLicensePlateNumber()
         );
         preparedStatement.setString(
             3,
@@ -159,7 +157,7 @@ public class TicketDao
 
         connection
         .prepareStatement(
-            "TRUNCATE TABLE t_tickets"
+            "TRUNCATE TABLE tickets"
         )
         .execute();
 
@@ -172,9 +170,9 @@ public class TicketDao
 
         connection
         .prepareStatement(
-            "DELETE FROM "       +
-                "t_tickets "     +
-            "WHERE "             +
+            "DELETE FROM"   +
+                "tickets"       +
+            "WHERE"             +
                 "car_number='"  +
                     number      +
                 "'"
@@ -184,6 +182,5 @@ public class TicketDao
         connection.close();
     }
 
-    // FIELDS
     private final DataSource dataSource;
 }

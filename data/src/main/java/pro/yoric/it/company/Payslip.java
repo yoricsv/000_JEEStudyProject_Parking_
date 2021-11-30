@@ -1,53 +1,54 @@
 package pro.yoric.it.company;
 
 import org.hibernate.annotations.GenericGenerator;
+import pro.yoric.it.data.DataSource;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.Month;
+// import java.util.Date;
 
 @Entity
-@Table(name = "t_payslip")
+@Table(name = "T_PAYSLIP")
 public class Payslip
 {
     // FIELDS
     @Id
-    @Column(name = "payslip_id")
+    @Column(name = "PAYSLIP_ID")
     @GeneratedValue(generator = "uuid-generator")
     @GenericGenerator(name = "uuid-generator", strategy = "uuid")
     private String id;
 
-    @Column(name = "amount")
+    @Column(name = "AMOUNT")
     private BigDecimal amount;
 
-    @Column(name = "year")
+    @Column(name = "YEAR")
     private short year;
     
     @Column
     @Enumerated(EnumType.ORDINAL)
     private Month payslipMonth;
 
-//    @Column(name = "start_date")
+//    @Column(name = "START_DATE")
 //    private Date startDate;
 //
-//    @Column(name = "end_date")
+//    @Column(name = "END_DATE")
 //    private Date endDate;
 //
-//    @Column(name = "update_date")
+//    @Column(name = "UPDATE_DATE")
 //    private Date updateDate;
 
     // FIELDS Relations
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "EMPLOYEE_ID")
     private Employee employee;
 
 
     // CONSTRUCTORS
     public Payslip(){}
 
-
     // GETTERS
-    public String     getId()
+    public String getId()
     {
         return id;
     }
@@ -55,31 +56,31 @@ public class Payslip
     {
         return amount;
     }
-    public short      getYear()
+    public short getYear()
     {
         return year;
     }
-    public Month      getPayslipMonth()
+    public Month getPayslipMonth()
     {
         return payslipMonth;
     }
-//    public Date       getStartDate()
+//    public Date getStartDate()
 //    {
 //        return startDate;
 //    }
-//    public Date       getEndDate()
+//    public Date getEndDate()
 //    {
 //        return endDate;
 //    }
-//    public Date       getUpdateDate()
+//    public Date getUpdateDate()
 //    {
 //        return updateDate;
 //    }
-    public Employee   getEmployee()
+    public Employee getEmployee()
     {
         return employee;
     }
-
+    
 
     // SETTERS
     public void setAmount(BigDecimal amount)

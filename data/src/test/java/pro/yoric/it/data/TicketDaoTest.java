@@ -1,26 +1,30 @@
 package pro.yoric.it.data;
 
-import pro.yoric.it.pojo.Ticket;
-
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.After;
+import pro.yoric.it.pojo.Ticket;
 
 import java.sql.SQLException;
 import java.util.Date;
 
 import static org.junit.Assert.*;
+//import static junit.framework.TestCase.assertNotNull;
 
 public class TicketDaoTest
 {
-    // INSTANCES
     TicketDao ticketDao;
+//    private Object ticketList;
 
-    @Before
+    @org.junit.Before
     public void setUp()
         throws Exception
     {
         ticketDao = new TicketDao(true);
+    }
+
+    @org.junit.After
+    public void tearDown()
+        throws Exception
+    {
     }
 
     @Test
@@ -29,31 +33,46 @@ public class TicketDaoTest
         assertNotNull(ticketDao);
     }
 
+//    need for test Class DataSource
+//    @Test
+//    public void testGetConnection()
+//        throws SQLException
+//    {
+//        Connection con = ticketDao.getConnection();
+//
+//        assertNotNull(con);
+//        con.close();
+//    }
+
+//    @Test
+//    public void testRealAllTickets()
+//        throws SQLException
+//    {
+//        List<Ticket> ticketList = ticketDao.readAllTickets();
+//
+//        assertNotNull(ticketList);
+//        assertEquals(1, ticketList.size());
+//    }
+
     @Test
     public void testSaveNewTicket()
         throws SQLException
     {
-        // GIVEN
+        // Given
         Ticket newTicket = new Ticket();
 
-        // TODO: id is not uuid
         newTicket.setDate(new Date());
-        newTicket.setCarNumber("5322HH-4");
+        newTicket.setLicensePlateNumber("5322HH-4");
 
-        // WHEN
+        // When
         ticketDao.saveNewTicket(newTicket);
 
-        // THEN
+        // Then
         Ticket ticket = ticketDao.readAllTickets().get(0);
 
         assertNotNull(ticket);
-        assertEquals("5322HH-4", ticket.getCarNumber());
+        assertEquals("5322HH-4", ticket.getLicensePlateNumber());
 
         ticketDao.deleteAll();
     }
-
-    @After
-    public void tearDown()
-        throws Exception
-    { }
 }

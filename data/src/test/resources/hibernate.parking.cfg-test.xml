@@ -9,7 +9,6 @@
         <property name = "hibernate.connection.password">root</property>
         <property name = "hibernate.dialect">org.hibernate.dialect.MySQL57Dialect</property>
         <property name = "show_sql">true</property>
-
         <mapping class = "pro.yoric.it.pojo.Person"/>
     </session-factory>
 </hibernate-configuration>
