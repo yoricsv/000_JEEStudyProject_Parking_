@@ -1,60 +1,59 @@
 package pro.yoric.it.company;
 
-import org.hibernate.FlushMode;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 import java.io.Serializable;
+
+import org.junit.Test;
+import org.junit.After;
+
+import static org.junit.Assert.*;
 
 public class EmployeeTest
     extends BaseTest
 {
-    private Thread Tread;
+    // INSTANCES
+    Session session;
 
+    @Test
     public void testSave()
         throws InterruptedException
     {
-        // Given
-        Session session = sessionFactory.openSession();
-        session.setHibernateFlushMode(FlushMode.ALWAYS);
+        // GIVEN
+        session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
-        Transaction tr = session.beginTransaction();
         Employee employee =
             new Employee(
                 "Ivan",
                 "Petrov",
-                "+375295558874"
+                "+375295554433"
             );
-        EmployeeDetails details = new EmployeeDetails("Lenina 21, Minsk");// O-T-O
-        employee.setEmployeeDetails(details);// O-T-O
-//        details.setEmployee(employee); // If we use cascade - don't need. (Have a sense for ONE-TO-ONE) @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+        EmployeeDetails details = new EmployeeDetails("Lenina 21, Minsk");
 
-        // When
+        employee.setEmployeeDetails(details);
+        details.setEmployee(employee);
+
+        // WHEN
         Serializable id = session.save(employee);
-        session.save(details);
-//        session.flush();
-//        Tread.sleep(5);
-//        Tread.sleep(10);
-        tr.commit(); // don't need use flush()
+        transaction.commit();
 
-        // Then
-//        Employee saved = session.load(Employee.class, id);
+        // THEN
+        Employee saved = session.get(Employee.class, id);
 
-        Employee saved = session.get(Employee.class, id); // O-T-O
         System.out.println(saved.getId());
 
         assertNotNull(saved.getId());
-        assertNotNull(saved.getEmployeeDetails().getId());// O-T-O
+        assertNotNull(saved.getEmployeeDetails().getId());
     }
 
     @Test
     public void saveCompanyWithEmployees()
     {
-        // Given
-        Company company    = new Company("Coca-cola");
+        // GIVEN
+        Company company = new Company("Coca-cola");
+
         Employee employee1 =
             new Employee(
                 "First",
@@ -71,20 +70,28 @@ public class EmployeeTest
         employee1.setCompany(company);
         employee2.setCompany(company);
 
-        // When
-        Session session = sessionFactory.openSession();
-        Transaction tr = session.beginTransaction();
+        // WHEN
+        session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
 
-        Serializable companyId = session.save(company);
+        Serializable companyId  = session.save(company);
         session.save(employee1);
         session.save(employee2);
 
-        tr.commit();
+        transaction.commit();
 
-        // Then
+        // THEN
         Company saved = session.load(Company.class, companyId);
-        session.refresh(saved); // neen to right saving many-to-one
+
+        session.refresh(saved);
+
         assertEquals(2, saved.getEmployees().size());
+    }
+
+    @After
+    public void tearDown()
+    {
+        session.close();
     }
 }
 

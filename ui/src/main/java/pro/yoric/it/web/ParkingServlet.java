@@ -1,31 +1,30 @@
-package pro.yoric.it.ui.web;
+package pro.yoric.it.web;
 
-import pro.yoric.it.controller.TicketController;
+import pro.yoric.it.service.TicketService;
 
-import jakarta.servlet.ServletConfig;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.*;
+
+import java.sql.SQLException;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 import java.util.List;
-
-import java.sql.SQLException;
-
-@WebServlet(name = "parkingServlet", urlPatterns = "/parking")
+/**
+ * Comment for have just one Dispatcher
+ */
+//@WebServlet(
+//    name        = "parkingServlet",
+//    urlPatterns = "/parking"
+//)
 public class ParkingServlet
     extends HttpServlet
 {
-//    private  HashMap<Object, Object> map = new HashMap<>();
-//    private TicketDao ticketDao;
-
-    private TicketController controller;
-
     @Override
     public void init(
-        ServletConfig config
+            ServletConfig config
         )
         throws ServletException
     {
@@ -33,7 +32,7 @@ public class ParkingServlet
 
         try
         {
-            controller = new TicketController();
+            controller = new TicketService();
         }
         catch (ClassNotFoundException e)
         {
@@ -43,6 +42,7 @@ public class ParkingServlet
             );
         }
     }
+
     @Override
     public void doGet(
             HttpServletRequest  req,
@@ -51,10 +51,12 @@ public class ParkingServlet
     {
         try
         {
-            HttpSession session = req.getSession();
             PrintWriter writer  = resp.getWriter();
-            String number       = req.getParameter("number");
-            Date currentDate    = new Date();
+            resp.setContentType("text/html");
+            HttpSession session = req.getSession();
+
+            String number      = req.getParameter("number");
+            Date   currentDate = new Date();
 
             List <String> messages =
                 controller
@@ -63,7 +65,6 @@ public class ParkingServlet
                     currentDate
                 );
 
-            resp.setContentType("text/html");
             messages.forEach(writer::println);
 
             writer.println(
@@ -80,17 +81,27 @@ public class ParkingServlet
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-            throws ServletException,
-                   IOException
+    protected void doPost(
+            HttpServletRequest  req,
+            HttpServletResponse resp
+        )
+        throws
+            ServletException,
+            IOException
     {
         doGet(req, resp);
     }
-    private void addParkingCookies( HttpServletResponse resp,
-                                    String number)
+
+    private void addParkingCookies(
+            HttpServletResponse resp,
+            String              number
+        )
     {
         Cookie cookie = new Cookie("PLATENUMBER", number);
         cookie.setMaxAge(300);
         resp.addCookie(cookie);
     }
+
+    // FIELDS
+    private TicketService controller;
 }

@@ -4,13 +4,13 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "persons")
+@Table(name = "t_person")
 public class Person
     implements Serializable
 {
     // FIELDS
     @Id
-    @Column (name = "id")
+    @Column (name = "person_id")
     private Long id;
 
     @Column (name = "name")
@@ -19,11 +19,13 @@ public class Person
     @Column (name = "second_name", length = 500)
     private String secondName;
 
+
     // CONSTRUCTORS
     public Person(){ }
 
+
     // GETTERS
-    public Long getId()
+    public Long   getId()
     {
         return id;
     }
@@ -35,6 +37,7 @@ public class Person
     {
         return secondName;
     }
+
 
     // SETTERS
     public void setId(Long id)

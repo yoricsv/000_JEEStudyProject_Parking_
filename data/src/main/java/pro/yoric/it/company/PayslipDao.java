@@ -20,9 +20,13 @@ public class PayslipDao
         this.sessionFactory = sessionFactory;
     }
 
-    public BigDecimal getAnnualSalary(String employeeId, short year)
+    public BigDecimal getAnnualSalary(
+            String employeeId,
+            short year
+        )
     {
         Session session = sessionFactory.openSession();
+        session.getCriteriaBuilder();
 
         final Query query =
             session.createQuery(

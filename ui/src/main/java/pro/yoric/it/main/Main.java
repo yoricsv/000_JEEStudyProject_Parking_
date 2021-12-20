@@ -1,14 +1,18 @@
-package pro.yoric.it.ui;
+package pro.yoric.it.main;
 
-import pro.yoric.it.controller.TicketController;
+import java.util.Date;
 
 public class Main
 {
-    public static void main(String[] args) throws ClassNotFoundException
+    public static void main(String[] args)
     {
-        TicketController printer = new TicketController();
-//        Ticket ticket = printer.printTicket("A1020-7 AA", "2021-09-25 21:20:23");
+        Date date = new Date();
 
-        System.out.println(printer);
+        System.out.println(date);
+        System.out.println(
+            new java.sql.Date(
+                date.getTime()
+            )
+        );
     }
 }

@@ -1,29 +1,31 @@
-package pro.yoric.it.ui.web;
+package pro.yoric.it.web;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import pro.yoric.it.controller.PersonController;
+import pro.yoric.it.service.PersonService;
 import pro.yoric.it.pojo.Person;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(urlPatterns = "/person", name = "personServlet")
+@WebServlet(
+    name        = "personServlet",
+    urlPatterns = "/person"
+)
 public class PersonServlet
     extends HttpServlet
 {
-
-    private  PersonController personController;
     @Override
     public void init()
         throws ServletException
     {
         super.init();
 
-        personController = new PersonController();
+        personController = new PersonService();
     }
 
     @Override
@@ -37,35 +39,69 @@ public class PersonServlet
     {
         String command = req.getParameter("command");
 
-        if(command != null && "new".equals(command))
+        if("new".equals(command))
         {
             Person person = new Person();
 
             person.setName(
-                req.getParameter("name")
+                req.getParameter(
+                    "name"
+                )
             );
 
             person.setSecondName(
-                req.getParameter("second_name")
+                req.getParameter(
+                    "second_name"
+                )
             );
 
             List<String> errors =
                 personController
-                .saveNewPerson(person);
+                .saveNewPerson(
+                    person
+                );
 
             if(errors.isEmpty())
                 req
-                .getRequestDispatcher("/person.jsp")
-                .forward(req, resp);
+                .getRequestDispatcher(
+                    "/person.jsp"
+                )
+                .forward(
+                    req,
+                    resp
+                );
             else
             {
                 req
-                .setAttribute("errors", errors);
+                .setAttribute(
+                    "errors",
+                    errors
+                );
 
                 req
-                .getRequestDispatcher("/add-person.jsp")
-                .forward(req, resp);
+                .getRequestDispatcher(
+                    "/add-person.jsp"
+                )
+                .forward(
+                    req,
+                    resp
+                );
             }
         }
     }
+
+    @Override
+    protected void doPost(
+            HttpServletRequest  req,
+            HttpServletResponse resp
+        )
+        throws
+            ServletException,
+            IOException
+    {
+        doGet(req, resp);
+    }
+
+    // FIELDS
+    private PersonService personController;
 }

@@ -1,5 +1,5 @@
-# My Previous program
-.old/
+# My Own
+res/tmp/
 
 # Artifact Package Files
 *.jar
@@ -20,9 +20,14 @@ logs/
 
 # IntelliJ files
 .idea/
+.jpb/
 *.iws
 *.iml
 *.ipr
+
+# Sensei plugin for idea
+.sensei/
+*.yaml
 
 # Spring boot
 .mvn/
