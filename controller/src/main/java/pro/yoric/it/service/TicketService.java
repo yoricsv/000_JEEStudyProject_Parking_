@@ -3,12 +3,15 @@ package pro.yoric.it.service;
 import pro.yoric.it.pojo.Ticket;
 import pro.yoric.it.data.TicketDao;
 
+import org.springframework.stereotype.Service;
+
 import java.sql.SQLException;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+@Service
 public class TicketService
 {
     // INJECTIONS
@@ -21,7 +24,7 @@ public class TicketService
         ticketDao = new TicketDao();
     }
 
-    // CONTROLLERS
+    // CONTROLLERS (SERVICES)
     public List<String> handleTicketRequest(
             String number,
             Date   currentDate

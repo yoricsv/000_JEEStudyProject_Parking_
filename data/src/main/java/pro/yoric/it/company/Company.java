@@ -3,12 +3,14 @@ package pro.yoric.it.company;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.util.List;
 
 @Entity
 @Table(name = "t_company")
 public class Company
 {
+    // FIELDS
     @Id
     @Column(name  = "company_id")
     @GeneratedValue(
@@ -23,7 +25,7 @@ public class Company
     @Column(name  = "company_name")
     private String companyName;
 
-    // FIELDS Relations
+    // FIELDS RELATIONS
     @OneToMany(
         mappedBy  = "company",
         cascade   = CascadeType.ALL

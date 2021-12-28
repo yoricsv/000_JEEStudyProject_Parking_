@@ -1,5 +1,6 @@
 package pro.yoric.it.data;
 
+import pro.yoric.it.dao.IPersonDao;
 import pro.yoric.it.pojo.Person;
 
 import org.hibernate.Session;
@@ -13,6 +14,7 @@ import java.util.List;
  * CRUD (Create Read Update Delete)
  */
 public class PersonDao
+    implements IPersonDao
 {
     /** CREATE */
     // CONSTRUCTORS
@@ -26,6 +28,7 @@ public class PersonDao
     }
 
     /** READ */
+    @Override
     public List<Person> readPerson()
     {
         Session session = sessionFactory.openSession();
@@ -33,7 +36,7 @@ public class PersonDao
         List<Person> personList =
             session
             .createQuery(
-                "FROM t_person",
+                "FROM Person",      // HQL, not SQL! HQL works with a persistent object not a Table!!!
                 Person.class)
             .list();
 
@@ -43,6 +46,7 @@ public class PersonDao
     }
 
     /** UPDATE */
+    @Override
     public Serializable savePerson(Person person)
     {
         Session session = sessionFactory.openSession();
@@ -53,6 +57,7 @@ public class PersonDao
         try
         {
             transaction    = session.beginTransaction();
+
             serializableId = session.save(person);
             transaction.commit();
         }
@@ -65,10 +70,12 @@ public class PersonDao
         {
             session.close();
         }
+
         return serializableId;
     }
 
     /** DELETE */
+    @Override
     public void         deletePerson(Person person)
     {
         Session session = sessionFactory.openSession();
@@ -78,6 +85,7 @@ public class PersonDao
         try
         {
             transaction = session.beginTransaction();
+
             session.delete(person);
             transaction.commit();
         }
@@ -90,6 +98,11 @@ public class PersonDao
         {
             session.close();
         }
+    }
+
+    @Override
+    public List<Person> searchByNameAndSecondName(String name, String secondName) {
+        return null;
     }
 
     private final SessionFactory sessionFactory;

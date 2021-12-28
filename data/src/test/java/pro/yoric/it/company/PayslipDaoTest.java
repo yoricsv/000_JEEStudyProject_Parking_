@@ -44,7 +44,7 @@ public class PayslipDaoTest
             );
 
         // THEN
-        assertEquals(new BigDecimal("24420.00"), res);
+        assertEquals(new BigDecimal("22405.00"), res);
     }
 
     @After

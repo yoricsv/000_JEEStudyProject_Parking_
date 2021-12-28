@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class SearchResult
+public class SearchResultDto
 {
     // FIELDS
     private String uuid;

@@ -1,6 +1,7 @@
 package pro.yoric.it.company;
 
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,14 +18,15 @@ public class EmployeeDetails
         name      = "uuid-generator",
         strategy  = "uuid"
     )
-    private String id;
+    private String   id;
 
     @Column(name  = "address")
-    private String address;
+    private String   address;
 
-    // FIELDS Relations
+
+    // FIELDS RELATIONS
     @OneToOne
-    private  Employee employee;
+    private Employee employee;
 
 
     // CONSTRUCTORS

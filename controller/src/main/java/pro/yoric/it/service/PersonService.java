@@ -1,24 +1,33 @@
 package pro.yoric.it.service;
 
-import pro.yoric.it.data.PersonDao;
+import pro.yoric.it.dao.IAppParkingUserDao;
+import pro.yoric.it.dao.IPersonDao;
+
+import pro.yoric.it.dto.AddNewUserCommandDto;
+
+import pro.yoric.it.pojo.AppParkingUser;
 import pro.yoric.it.pojo.Person;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class PersonService
 {
-    // CONSTRUCTORS
-    public PersonService()
-    {
-        personDao = new PersonDao();
-    }
+    // INSTANCES
+    @Autowired
+    private IAppParkingUserDao iUserDao;
+    @Autowired
+    private IPersonDao         iPersonDao;
 
 
     // GETTERS
     public List<Person> getAllPersons()
     {
-        return personDao.readPerson();
+        return iPersonDao.readPerson();
     }
 
 
@@ -29,7 +38,8 @@ public class PersonService
 
         // Validate input params
         if (    person.getName() == null
-             || person.getName().isEmpty())
+             || person.getName().isEmpty()
+        )
             validationErrors.add("Name is empty");
 
         if(person.getId() == null)
@@ -40,11 +50,26 @@ public class PersonService
             );
 
         if(validationErrors.isEmpty())
-            personDao.savePerson(person);
+            iPersonDao.savePerson(person);
 
         return validationErrors;
     }
 
-    // FIELDS
-    private final PersonDao personDao;
+    public void addNewUser(AddNewUserCommandDto command)
+    {
+        AppParkingUser user   = new AppParkingUser();
+        Person         person = new Person();
+
+        person.setName(command.getName());
+        person.setSecondName(command.getSecondName());
+
+        saveNewPerson(person);
+
+
+        user.setPerson(person);
+        user.setAppParkingUserLogin(command.getLogin());
+        user.setAppParkingUserPassword(command.getPassword());
+
+        iUserDao.saveUser(user);
+    }
 }

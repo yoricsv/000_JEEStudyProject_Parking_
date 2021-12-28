@@ -3,6 +3,7 @@ package pro.yoric.it.company;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @Table(name = "t_employee")
 public class Employee
 {
+    // FIELDS
     @Id
     @Column(name  = "employee_id")
     @GeneratedValue(
@@ -30,7 +32,8 @@ public class Employee
     @Column(name  = "phone_number")
     private String phoneNumber;
 
-    // FIELDS Relations
+
+    // FIELDS RELATIONS
     @OneToOne(
         mappedBy = "employee",
         cascade  = CascadeType.ALL
@@ -38,16 +41,21 @@ public class Employee
     private EmployeeDetails employeeDetails;
 
     @ManyToOne
-    @JoinColumn(
-        name     = "fk_company_id"
+    @JoinColumn(name = "fk_company_id"
     )
     private Company company;
 
     @ManyToMany
     @JoinTable(
-        name               = "t_employee_meetings",
-        joinColumns        = @JoinColumn(name = "employee_id"),
-        inverseJoinColumns = @JoinColumn(name = "meeting_id")
+        name         = "t_employee_meetings",
+        joinColumns  =
+            @JoinColumn(
+                name = "employee_id"
+            ),
+        inverseJoinColumns =
+            @JoinColumn(
+                name = "meeting_id"
+            )
     )
     private List<Meeting> meetings = new ArrayList<>();
 

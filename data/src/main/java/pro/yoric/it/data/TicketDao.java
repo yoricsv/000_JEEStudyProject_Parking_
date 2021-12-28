@@ -1,15 +1,18 @@
 package pro.yoric.it.data;
 
+import pro.yoric.it.dao.ITicketDao;
 import pro.yoric.it.pojo.Ticket;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * CRUD (Create Read Update Delete)
  */
 public class TicketDao
+    implements ITicketDao
 {
     /** CREATE */
     // CONSTRUCTORS
@@ -26,6 +29,7 @@ public class TicketDao
 
     /** READ */
     // GETTERS
+    @Override
     public List<Ticket> readAllTickets()
         throws SQLException
     {
@@ -66,6 +70,7 @@ public class TicketDao
 
         return ticketList;
     }
+    @Override
     public Ticket       getTicketByNumber(String licensePlateNumber)
         throws SQLException
     {
@@ -110,6 +115,7 @@ public class TicketDao
 
     /** UPDATE */
     // SETTERS
+    @Override
     public void saveNewTicket(Ticket ticket)
         throws SQLException
     {
@@ -152,6 +158,7 @@ public class TicketDao
     }
 
     /** DELETE */
+    @Override
     public void deleteAll()
         throws SQLException
     {
@@ -165,6 +172,7 @@ public class TicketDao
 
         connection.close();
     }
+    @Override
     public void removeByNumber(String number)
         throws SQLException
     {
@@ -182,6 +190,11 @@ public class TicketDao
         .execute();
 
         connection.close();
+    }
+
+    @Override
+    public List<Ticket> findByPersonId(Set<Long> ids) {
+        return null;
     }
 
     // FIELDS

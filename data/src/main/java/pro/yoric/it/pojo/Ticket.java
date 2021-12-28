@@ -1,11 +1,16 @@
 package pro.yoric.it.pojo;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "t_tickets")
+@Getter
+@Setter
 public class Ticket
     implements Serializable
 {
@@ -20,28 +25,33 @@ public class Ticket
     @Column (name = "ticket_date")
     private   Date date;
 
-    // GETTERS
-    public long   getId() { return id; }
-    public String getCarNumber()
-    {
-        return carNumber;
-    }
-    public Date   getDate()
-    {
-        return date;
-    }
+    // RELATIONS
+    @ManyToOne
+    @JoinColumn(name = "person_id")
+    private Person person;
 
-    //SETTERS
-    public void setId(long id) {
-        this.id = id;
-    }
-    public void setDate(Date date)
-    {
-        this.date = date;
-    }
-    public void setCarNumber(String carNumber)
-    {
-        this.carNumber = carNumber;
-    }
+//    // GETTERS
+//    public long   getId() { return id; }
+//    public String getCarNumber()
+//    {
+//        return carNumber;
+//    }
+//    public Date   getDate()
+//    {
+//        return date;
+//    }
+//
+//    //SETTERS
+//    public void setId(long id) {
+//        this.id = id;
+//    }
+//    public void setDate(Date date)
+//    {
+//        this.date = date;
+//    }
+//    public void setCarNumber(String carNumber)
+//    {
+//        this.carNumber = carNumber;
+//    }
 }
 

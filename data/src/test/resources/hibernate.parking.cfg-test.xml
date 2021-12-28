@@ -3,22 +3,28 @@
 
 <hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
     <session-factory>
+		<!-- DATABASE DRIVER -->
         <property name = "hibernate.connection.driver_class">
             com.mysql.cj.jdbc.Driver
         </property>
+		<!-- DATABASE PATH -->
         <property name = "hibernate.connection.url">
             jdbc:mysql://localhost:3306/parking_test?createDatabaseIfNotExist=true
         </property>
 
+		<!-- DATABASE SIGN IN INFO -->
         <property name = "hibernate.connection.username">root</property>
         <property name = "hibernate.connection.password">root</property>
 
+		<!-- DATABASE DIALECT -->
         <property name = "hibernate.dialect">
             org.hibernate.dialect.MySQL57Dialect
         </property>
 
+		<!-- DATABASE OPTIONS -->
         <property name = "show_sql">true</property>
 
+		<!-- POJO CLASSES MAPPING -->
         <mapping class = "pro.yoric.it.pojo.Person"/>
     </session-factory>
 </hibernate-configuration>

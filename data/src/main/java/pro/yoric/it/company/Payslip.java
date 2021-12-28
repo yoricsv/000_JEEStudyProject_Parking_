@@ -3,6 +3,7 @@ package pro.yoric.it.company;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.math.BigDecimal;
 import java.time.Month;
 
@@ -12,34 +13,31 @@ public class Payslip
 {
     // FIELDS
     @Id
-    @Column(name = "payslip_id")
-    @GeneratedValue(generator = "uuid-generator")
-    @GenericGenerator(name = "uuid-generator", strategy = "uuid")
-    private String id;
+    @Column(name  = "payslip_id")
+    @GeneratedValue(
+        generator = "uuid-generator"
+    )
+    @GenericGenerator(
+        name      = "uuid-generator",
+        strategy  = "uuid"
+    )
+    private String     id;
 
-    @Column(name = "amount")
+    @Column(name  = "amount")
     private BigDecimal amount;
 
-    @Column(name = "year")
-    private short year;
+    @Column(name  = "year")
+    private short      year;
     
     @Column
     @Enumerated(EnumType.ORDINAL)
-    private Month payslipMonth;
+    private Month      payslipMonth;
 
-//    @Column(name = "start_date")
-//    private Date startDate;
-//
-//    @Column(name = "end_date")
-//    private Date endDate;
-//
-//    @Column(name = "update_date")
-//    private Date updateDate;
 
-    // FIELDS Relations
+    // FIELDS RELATIONS
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    private Employee employee;
+    private Employee   employee;
 
 
     // CONSTRUCTORS
@@ -63,18 +61,6 @@ public class Payslip
     {
         return payslipMonth;
     }
-//    public Date       getStartDate()
-//    {
-//        return startDate;
-//    }
-//    public Date       getEndDate()
-//    {
-//        return endDate;
-//    }
-//    public Date       getUpdateDate()
-//    {
-//        return updateDate;
-//    }
     public Employee   getEmployee()
     {
         return employee;
@@ -94,18 +80,6 @@ public class Payslip
     {
         this.payslipMonth = payslipMonth;
     }
-//    public void setStartDate(Date startDate)
-//    {
-//        this.startDate = startDate;
-//    }
-//    public void setEndDate(Date endDate)
-//    {
-//        this.endDate = endDate;
-//    }
-//    public void setUpdateDate(Date updateDate)
-//    {
-//        this.updateDate = updateDate;
-//    }
     public void setEmployee(Employee employee)
     {
         this.employee = employee;

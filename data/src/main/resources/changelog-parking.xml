@@ -34,13 +34,28 @@
 
     <changeSet id = "3" author = "yoric">
         <sql>
-            CREATE TABLE IF NOT EXISTS t_person
+            CREATE TABLE IF NOT EXISTS t_persons
             (
                 name        VARCHAR(100) NOT NULL,
                 second_name VARCHAR(100) NOT NULL,
                 person_id   INT(11)      NOT NULL,
 
                 PRIMARY KEY (person_id)
+            );
+        </sql>
+    </changeSet>
+
+    <changeSet id = "4" author = "yoric">
+        <sql>
+            CREATE TABLE IF NOT EXISTS t_app_parking_users
+            (
+                app_parking_user_id VARCHAR(255) NOT NULL,
+                user_login          VARCHAR(100) NOT NULL,
+                user_password       VARCHAR(100) NOT NULL,
+                person_id           INT(11)      NOT NULL,
+
+                PRIMARY KEY (app_parking_user_id),
+                FOREIGN KEY (person_id) REFERENCES t_persons (person_id)
             );
         </sql>
     </changeSet>

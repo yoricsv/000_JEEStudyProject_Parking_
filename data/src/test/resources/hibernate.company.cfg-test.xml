@@ -4,25 +4,31 @@
 
 <hibernate-configuration xmlns = "http://www.hibernate.org/xsd/orm/cfg">
     <session-factory>
+		<!-- DATABASE DRIVER -->
         <property name = "hibernate.connection.driver_class">
             com.mysql.cj.jdbc.Driver
         </property>
+		<!-- DATABASE PATH -->
         <property name = "hibernate.connection.url">
             jdbc:mysql://localhost:3306/company_test?createDatabaseIfNotExist=true
         </property>
 
+		<!-- DATABASE SIGN IN INFO -->
         <property name = "hibernate.connection.username">root</property>
         <property name = "hibernate.connection.password">root</property>
-        <property name = "hibernate.hbm2ddl.auto">create-drop</property><!--update,create,create-drop-->
-
+        
+		<!-- DATABASE DIALECT -->
         <property name = "hibernate.dialect">
             org.hibernate.dialect.MySQL57Dialect
         </property>
-
+		
+		<!-- DATABASE OPTIONS -->
+		<property name = "hibernate.hbm2ddl.auto">create-drop</property><!--update,create,create-drop-->
         <property name = "hibernate.connection.autocommit">true</property><!--TO OPERATE-->
         <property name = "show_sql">true</property>
 
-        <mapping package ="by.academy.it.company"/>
+		<!-- POJO CLASSES MAPPING -->
+        <mapping package = "by.academy.it.company"/>
         <mapping class   = "pro.yoric.it.company.Employee"/>
         <mapping class   = "pro.yoric.it.company.EmployeeDetails"/>
         <mapping class   = "pro.yoric.it.company.Company"/>

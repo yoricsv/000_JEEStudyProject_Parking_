@@ -71,7 +71,7 @@ public class PersonDaoTest
 
     @After
     public void tearDown()
-            throws Exception
+        throws Exception
     {
         personDao = null;
     }

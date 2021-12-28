@@ -10,6 +10,10 @@ import java.math.BigDecimal;
 
 public class PayslipDao
 {
+    // INSTANCES
+    private final SessionFactory sessionFactory;
+
+
     // CONSTRUCTORS
     public PayslipDao()
     {
@@ -20,6 +24,8 @@ public class PayslipDao
         this.sessionFactory = sessionFactory;
     }
 
+
+    // GETTERS
     public BigDecimal getAnnualSalary(
             String employeeId,
             short year
@@ -28,13 +34,23 @@ public class PayslipDao
         Session session = sessionFactory.openSession();
         session.getCriteriaBuilder();
 
-        final Query query =
+        final Query<?> query =
             session.createQuery(
                 "SELECT "                                +
                     "SUM "                               +
                         "(p.amount) "                    +
                 "FROM "                                  +
-                    "t_payslip p "                       +
+                    "Payslip p "                         +  // HQL, not SQL! HQL works with a persistent object!!!
+/** *********************************************************** *
+ *          BE CAREFUL >> IMPORTANT << BE CAREFUL               *
+ *                                                              *
+ *  PAYSLIP is a persistent object for HIBERNATE (HQL, not SQL) *
+ *     When we try to use a table name we get an error!         *
+ *       (Smth like: ... t_payslip is not mapped...)            *
+ *                                                              *
+ *          IS A MISTAKE -->   "t_payslip p "  +                *
+ * ************************************************************ */
+
                 "WHERE "                                 +
                         "p.employee.id=:employee_id "    +
                     "AND "                               +
@@ -49,7 +65,4 @@ public class PayslipDao
         session.close();
         return sum;
     }
-
-    // FIELDS
-    private final SessionFactory sessionFactory;
 }

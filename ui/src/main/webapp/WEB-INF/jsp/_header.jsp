@@ -85,7 +85,7 @@
                                    id             = "navbarDropdown"
                                    role           = "button"
                                 >
-                                    Dropdown
+                                    Users
                                 </a>
 
                                 <ul aria-labelledby = "navbarDropdown"
@@ -93,9 +93,9 @@
                                 >
                                     <li>
                                         <a class = "dropdown-item"
-                                           href  = "#"
+                                           href  = "/ui/add-new-user.html"
                                         >
-                                            Action
+                                            Add new user
                                         </a>
                                     </li>
                                     <li>
@@ -127,13 +127,13 @@
                             </li>
                         </ul>
 
-                        <form class = "d-flex"
-                                action = "#"
+                        <form action = "/ui/search.html"
+                              class  = "d-flex"
                         >
                             <input aria-label  = "Search"
                                    class       = "form-control
                                                   me-2"
-                                                  name =
+                                   name        = "str"
                                    placeholder = "Search"
                                    type        = "search"
                             />

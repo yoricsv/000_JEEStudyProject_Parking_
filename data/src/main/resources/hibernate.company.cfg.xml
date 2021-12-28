@@ -1,25 +1,32 @@
-<?xml version   = "1.0"
-      encoding  = "UTF-8"
+<?xml version  = "1.0"
+      encoding = "UTF-8"
 ?>
-<hibernate-configuration xmlns="http://www.hibernate.org/xsd/orm/cfg">
+
+<hibernate-configuration xmlns = "http://www.hibernate.org/xsd/orm/cfg">
     <session-factory>
-        <property name="hibernate.connection.driver_class">
+        <!-- DATABASE DRIVER -->
+        <property name = "hibernate.connection.driver_class">
             com.mysql.cj.jdbc.Driver
         </property>
-        <property name="hibernate.connection.url">
+        <!-- DATABASE PATH -->
+        <property name = "hibernate.connection.url">
             jdbc:mysql://localhost:3306/company?createDatabaseIfNotExist=true
         </property>
-        
-        <property name="hibernate.connection.username">root</property>
-        <property name="hibernate.connection.password">root</property>
-        <property name="hibernate.hbm2ddl.auto">update</property>
-        
-        <property name="hibernate.dialect">
+
+        <!-- DATABASE SIGN IN INFO -->
+        <property name = "hibernate.connection.username">root</property>
+        <property name = "hibernate.connection.password">root</property>
+
+        <!-- DATABASE DIALECT -->
+        <property name = "hibernate.dialect">
             org.hibernate.dialect.MySQL57Dialect
         </property>
-        
-        <property name="show_sql">true</property>
 
+        <!-- DATABASE OPTIONS -->
+        <property name = "hibernate.hbm2ddl.auto">update</property>
+        <property name = "show_sql">true</property>
+
+        <!-- POJO CLASSES MAPPING -->
         <mapping package = "pro.yoric.it.company"/>
         <mapping class   = "pro.yoric.it.company.Employee"/>
         <mapping class   = "pro.yoric.it.company.EmployeeDetails"/>

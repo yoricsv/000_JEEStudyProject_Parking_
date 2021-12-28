@@ -18,37 +18,39 @@ import org.springframework.stereotype.Component;
 public class EmployeeValidator
     implements IEmployeeValidator
 {
+    // CONSTRUCTORS
     public EmployeeValidator()
     {
         super();
     }
 
+
+    // METHODS
     @Override
     public boolean validate(Employee employee)
     {
-        System.out.println("Call EmployeeValidatorImpl");
+        System.out.println(
+                "Call the implementation of EmployeeValidator"
+        );
+
         return false;
     }
-
     @Override
     public int hashCode()
     {
         return super.hashCode();
     }
-
     @Override
     public boolean equals(Object obj)
     {
         return super.equals(obj);
     }
-
     @Override
     protected Object clone()
         throws CloneNotSupportedException
     {
         return super.clone();
     }
-
     @Override
     public String toString()
     {

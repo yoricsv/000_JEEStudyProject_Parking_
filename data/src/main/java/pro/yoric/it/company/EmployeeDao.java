@@ -8,28 +8,34 @@ import org.hibernate.Transaction;
 
 public class EmployeeDao
 {
+    // INSTANCES
+    private final SessionFactory sessionFactory;
+
+
     // CONSTRUCTORS
     public EmployeeDao()
     {
         sessionFactory = SessionFactoryHolder.getSessionFactoryCompany();
     }
 
+
+    // SETTERS
     public boolean saveEmployee(Employee employee)
     {
               Session     session     = sessionFactory.openSession();
-        final Transaction TRANSACTION = session.beginTransaction();
+        final Transaction transaction = session.beginTransaction();
 
         try
         {
             session.save(employee);
-            TRANSACTION.commit();
+            transaction.commit();
 
             return true;
         }
         catch (Exception e)
         {
             e.printStackTrace();
-            TRANSACTION.rollback();
+            transaction.rollback();
 
             return false;
         }
@@ -38,6 +44,4 @@ public class EmployeeDao
             session.close();
         }
     }
-
-    private final SessionFactory sessionFactory;
 }

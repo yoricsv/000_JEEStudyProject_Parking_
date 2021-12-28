@@ -3,12 +3,13 @@ package pro.yoric.it.company;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+
 import java.util.Date;
 import java.util.List;
 
 // TABLE
 @Entity
-@Table(name = "t_meeting")
+@Table(name = "t_meetings")
 public class Meeting
 {
     // FIELDS
@@ -29,11 +30,17 @@ public class Meeting
     @Column(name  = "meeting_date")
     private Date   meetingDate;
 
-    // FIELDS Relations
-    @OneToMany(mappedBy = "company")
+    // FIELDS RELATIONS
+    @OneToMany(
+        mappedBy  = "company"
+    )
     private List<Employee> employees;
-    @OneToMany(mappedBy = "meetings")
+
+    @OneToMany(
+        mappedBy  = "meetings"
+    )
     private List<Employee> attendees;
+
 
     // CONSTRUCTORS
     public Meeting(){ }

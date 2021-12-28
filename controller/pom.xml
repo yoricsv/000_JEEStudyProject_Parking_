@@ -65,7 +65,7 @@
         </dependency>
     </dependencies>
 
-    <!-- ADD LAMBOK (ADD CLASS in binary into output file)-->
+    <!-- ADD LAMBOK (ADD CLASS in binary output file)-->
     <build>
         <plugins>
             <plugin>

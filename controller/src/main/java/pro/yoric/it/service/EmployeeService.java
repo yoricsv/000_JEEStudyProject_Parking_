@@ -8,17 +8,30 @@ import org.springframework.stereotype.Service;
 
 
 /**
- * Param: @Service
- * need for webapp - controller,
- * for jar - service
- * and
- * NEED FOR AUTO BEAN CREATION
+ * Param: @Service - NEED FOR AUTO BEAN CREATION
+ * Typical use:
+ *      in the context of a WEB application as a controller,
+ *      in the context of a JAR application as a service
  */
 @Service
 public class EmployeeService
 {
+    /** ******************************************************* *
+     *            If using the SPRING framework,                *
+     *        DO NOT USE THE ORDINARY INSTANTIATION             *
+     *                                                          *
+     *  Example: EmployeeDao employeeDao = new EmployeeDao();   *
+     *                                                          *
+     *            Below we use SPRING INJECTION                 *
+     *            (We will create constructors)                 *
+     *  ******************************************************* *
+    */
+    // INSTANCES
+    final PayslipDao  payslipDao;
+    final EmployeeDao employeeDao;
 
-    // CONTROLLER
+
+    // CONSTRUCTORS
     public EmployeeService(
             EmployeeDao employeeDao,
             PayslipDao  payslipDao
@@ -28,8 +41,6 @@ public class EmployeeService
         this.payslipDao  = payslipDao;
     }
 
-    // INJECTIONS (DON'T NEED FOR SPRING REGISTRATION. HERE WE CREATE CONSTRUCTORS!!!!!)
-//    EmployeeDao employeeDao = new EmployeeDao();
 
     // SETTERS
     public boolean save(Employee employee)
@@ -37,8 +48,4 @@ public class EmployeeService
         // Check employee input value
         return employeeDao.saveEmployee(employee);
     }
-
-    // FIELDS
-    final EmployeeDao employeeDao;
-    final PayslipDao  payslipDao;
 }
