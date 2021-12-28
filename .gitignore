@@ -1,8 +1,6 @@
 # My Own
 res/tmp/
-.idea/
-.old/
-.jpb/
+/.old/
 
 # Artifact Package Files
 *.jar
