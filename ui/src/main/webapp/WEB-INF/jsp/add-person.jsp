@@ -3,6 +3,11 @@
     prefix = "c"
     uri    = "http://java.sun.com/jsp/jstl/core"
 %>
+<%@
+    taglib
+    prefix = "f"
+    uri    = "http://www.springframework.org/tags/form"
+%>
 
 <jsp:include page = "_header.jsp" />
 
@@ -10,8 +15,9 @@
         User details
     </h1>
 
-    <form action = "/ui/add-new-person.do"
-          method = "post"
+    <f:form action         = "/ui/add-new-person.do"
+            method         = "post"
+            modelAttribute = "addNewUserCommand"
     >
 
         <div class = "mb-3">
@@ -20,11 +26,12 @@
             >
                 First name
             </label>
-            <input aria-label = "First name"
-                   class      = "form-control"
-                   id         = "name"
-                   name       = "name"
-                   type       = "text"
+            <f:input aria-label = "First name"
+                     class      = "form-control"
+                     id         = "name"
+                     name       = "name"
+                     path       = "name"
+                     type       = "text"
             />
         </div>
 
@@ -34,11 +41,12 @@
             >
                 Last name
             </label>
-            <input aria-label = "Last name"
-                   class      = "form-control"
-                   id         = "second_name"
-                   name       = "secondName"
-                   type       = "text"
+            <f:input aria-label = "Last name"
+                     class      = "form-control"
+                     id         = "second_name"
+                     name       = "secondName"
+                     path       = "secondName"
+                     type       = "text"
             />
         </div>
 
@@ -48,11 +56,12 @@
             >
                 User login
             </label>
-            <input aria-label = "User login"
-                   class      = "form-control"
-                   id         = "login"
-                   name       = "login"
-                   type       = "text"
+            <f:input aria-label = "User login"
+                     class      = "form-control"
+                     id         = "login"
+                     name       = "login"
+                     path       = "login"
+                     type       = "text"
             />
         </div>
 
@@ -62,25 +71,30 @@
             >
                 Password
             </label>
-            <input aria-label = "Password"
-                   class      = "form-control"
-                   id         = "password"
-                   name       = "password"
-                   type       = "password"
+            <f:input aria-label = "Password"
+                     class      = "form-control"
+                     id         = "password"
+                     name       = "password"
+                     path       = "password"
+                     type       = "password"
             />
-            <input name  = "command"
-                   type  = "hidden"
-                   value = "new_user"
+            <f:input name  = "command"
+                     path  = "command"
+                     type  = "hidden"
+                     value = "new_user"
             />
         </div>
 
-        <button class = "btn
-                         btn-primary"
-                type  = "submit"
+        <f:button class = "btn
+                           btn-primary"
+                  type  = "submit"
         >
             Submit
-        </button>
+        </f:button>
 
-    </form>
+        <div class = "mb-3">
+            <f:errors path = "*" />
+        </div>
+    </f:form>
 
 <jsp:include page = "_footer.jsp" />

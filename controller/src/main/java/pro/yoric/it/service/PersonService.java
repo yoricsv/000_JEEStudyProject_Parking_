@@ -55,7 +55,7 @@ public class PersonService
         return validationErrors;
     }
 
-    public void addNewUser(AddNewUserCommandDto command)
+    public List<String> addNewUser(AddNewUserCommandDto command)
     {
         AppParkingUser user   = new AppParkingUser();
         Person         person = new Person();
@@ -63,13 +63,18 @@ public class PersonService
         person.setName(command.getName());
         person.setSecondName(command.getSecondName());
 
-        saveNewPerson(person);
+        List<String> errors = saveNewPerson(person);
 
+        if (errors.isEmpty())
+        {
+            user.setPerson(person);
 
-        user.setPerson(person);
-        user.setAppParkingUserLogin(command.getLogin());
-        user.setAppParkingUserPassword(command.getPassword());
+            user.setAppParkingUserLogin(command.getLogin());
+            user.setAppParkingUserPassword(command.getPassword());
 
-        iUserDao.saveUser(user);
+            iUserDao.saveUser(user);
+        }
+
+        return errors;
     }
 }
