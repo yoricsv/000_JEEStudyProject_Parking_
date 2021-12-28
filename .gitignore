@@ -1,6 +1,6 @@
 # My Own
 res/tmp/
-.old
+_old/
 
 # Artifact Package Files
 *.jar
