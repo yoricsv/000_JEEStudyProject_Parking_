@@ -2,9 +2,15 @@ package pro.yoric.it.service;
 
 import pro.yoric.it.company.Company;
 import pro.yoric.it.company.Employee;
+
+import pro.yoric.it.dao.IPersonDao;
 import pro.yoric.it.dao.ICompanySearchDao;
+
 import pro.yoric.it.dto.SearchResultDto;
 
+import pro.yoric.it.pojo.Person;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,8 +22,11 @@ import java.util.stream.Collectors;
 public class SearchService
 {
     // INSTANCES
+    @Autowired
     private ICompanySearchDao companySearchDao;
     //    private IEmployeeSearchDao employeeSearchDao;
+    @Autowired
+    private IPersonDao iPersonDao;
 
 
     // METHODS
@@ -25,8 +34,9 @@ public class SearchService
     {
         List<SearchResultDto> results = new ArrayList<>();
 
-        List<Company>  companySearchResults  = companySearchDao.search(searchParam);
-        List<Employee> employeeSearchResults = Collections.emptyList();
+        final List<Company>  companySearchResults  = companySearchDao.search(searchParam);
+        final List<Employee> employeeSearchResults = Collections.emptyList();
+        final List<Person>   personSearchResults   = iPersonDao.search(searchParam);
 
         results.addAll(
             companySearchResults
@@ -37,6 +47,25 @@ public class SearchService
                         company.getId(),
                         "company",
                         company.getCompanyName()
+                    )
+            )
+            .collect(
+                Collectors.toList()
+            )
+        );
+
+
+        results.addAll(
+            personSearchResults
+            .stream()
+            .map(
+                person ->
+                    new SearchResultDto(
+                        person.getId().toString(),
+                        "person",
+                        person.getName()        +
+                        " "                     +
+                        person.getSecondName()
                     )
             )
             .collect(

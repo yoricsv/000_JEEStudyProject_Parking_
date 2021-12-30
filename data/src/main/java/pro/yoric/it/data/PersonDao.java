@@ -101,8 +101,66 @@ public class PersonDao
     }
 
     @Override
-    public List<Person> searchByNameAndSecondName(String name, String secondName) {
-        return null;
+    public List<Person> searchByNameAndSecondName(
+            String name,
+            String secondName
+        )
+    {
+        Session session = sessionFactory.openSession();
+
+        List<Person> personList =
+            session
+            .createQuery(
+                "FROM "             +
+                    "Person p "     +
+                "WHERE "            +
+                    "p.name=:name " +
+                "AND "              +
+                    "p.secondName=:secondName ",
+                Person.class
+            )
+            .setParameter(
+                "name",
+                name
+            )
+            .setParameter(
+                "secondName",
+                secondName
+            )
+            .list();
+
+        session.close();
+
+        return personList;
+    }
+
+    @Override
+    public List<Person> search(String param)
+    {
+        Session session = sessionFactory.openSession();
+
+        List<Person> personList =
+            session
+            .createQuery(
+                "FROM "             +
+                    "Person p "     +
+                "WHERE "            +
+                    "p.name "       +
+                "LIKE "             +
+                    "'%"            + param +
+                    "%' "           +
+                "OR "               +
+                    "p.secondName " +
+                "LIKE "             +
+                    "'%"            + param +
+                    "%' ",
+                Person.class
+            )
+            .list();
+
+        session.close();
+
+        return personList;
     }
 
     private final SessionFactory sessionFactory;

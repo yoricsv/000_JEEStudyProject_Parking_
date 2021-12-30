@@ -16,6 +16,7 @@
     </h1>
 
     <f:form action         = "/ui/add-new-person.do"
+            enctype        = "multipart/form-data"
             method         = "post"
             modelAttribute = "addNewUserCommand"
     >
@@ -83,6 +84,22 @@
                      type  = "hidden"
                      value = "new_user"
             />
+            <f:errors cssClass = "error"
+                      path     = "password"
+            />
+        </div>
+
+        <div class="mb-3">
+            <label class = "form-label"
+                   for   = "file"
+            >
+                Photo
+            </label>
+
+            <input id   = "file"
+                   name = "file"
+                   type = "file"
+            />
         </div>
 
         <f:button class = "btn
@@ -91,6 +108,7 @@
         >
             Submit
         </f:button>
+
 
         <div class = "mb-3">
             <f:errors path = "*" />

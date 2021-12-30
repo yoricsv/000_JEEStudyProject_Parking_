@@ -17,4 +17,6 @@ public interface IPersonDao
         String name,
         String secondName
     );
+
+    List<Person> search(String param);
 }

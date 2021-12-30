@@ -1,8 +1,10 @@
 package pro.yoric.it.config;
 
+import pro.yoric.it.company.CompanyDao;
 import pro.yoric.it.company.EmployeeDao;
 import pro.yoric.it.company.PayslipDao;
 
+import pro.yoric.it.dao.ICompanySearchDao;
 import pro.yoric.it.dao.IAppParkingUserDao;
 import pro.yoric.it.dao.IPersonDao;
 import pro.yoric.it.dao.ITicketDao;
@@ -44,6 +46,12 @@ public class ControllerSpringConfig
     public PayslipDao payslipDao()
     {
         return new PayslipDao();
+    }
+
+    @Bean
+    public ICompanySearchDao companySearchDao()
+    {
+        return new CompanyDao();
     }
 
     @Bean

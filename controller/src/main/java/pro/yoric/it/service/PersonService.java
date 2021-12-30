@@ -42,6 +42,11 @@ public class PersonService
         )
             validationErrors.add("Name is empty");
 
+        if (   person.getSecondName() == null
+            || person.getSecondName().isEmpty()
+        )
+            validationErrors.add("Second name is empty");
+
         if(person.getId() == null)
             person.setId(
                 Math.round(
@@ -76,5 +81,19 @@ public class PersonService
         }
 
         return errors;
+    }
+
+    public Person findPerson(
+            String name,
+            String secondName
+        )
+    {
+        return
+            iPersonDao
+            .searchByNameAndSecondName(
+                name,
+                secondName
+            )
+            .get(0);
     }
 }

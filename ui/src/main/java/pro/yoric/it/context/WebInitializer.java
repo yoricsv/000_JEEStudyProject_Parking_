@@ -21,6 +21,7 @@ public class WebInitializer
     {
         AnnotationConfigWebApplicationContext context =
                 new AnnotationConfigWebApplicationContext();
+
         context.register(WebConfiguration.class);       //Init and load context
 
         DispatcherServlet servlet =
@@ -38,6 +39,4 @@ public class WebInitializer
             "*.do"
         );
     }
-
-
 }
