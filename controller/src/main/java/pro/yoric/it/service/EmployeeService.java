@@ -1,8 +1,11 @@
 package pro.yoric.it.service;
 
-import pro.yoric.it.company.Employee;
 import pro.yoric.it.company.EmployeeDao;
 import pro.yoric.it.company.PayslipDao;
+import pro.yoric.it.company.pojo.Employee;
+
+import pro.yoric.it.dao.IEmployeeDao;
+import pro.yoric.it.dao.IPayslipDao;
 
 import org.springframework.stereotype.Service;
 
@@ -27,8 +30,8 @@ public class EmployeeService
      *  ******************************************************* *
     */
     // INSTANCES
-    final PayslipDao  payslipDao;
-    final EmployeeDao employeeDao;
+    private final IEmployeeDao iEmployeeDao;
+    private final IPayslipDao  iPayslipDao;
 
 
     // CONSTRUCTORS
@@ -37,8 +40,8 @@ public class EmployeeService
             PayslipDao  payslipDao
         )
     {
-        this.employeeDao = employeeDao;
-        this.payslipDao  = payslipDao;
+        this.iEmployeeDao = employeeDao;
+        this.iPayslipDao  = payslipDao;
     }
 
 
@@ -46,6 +49,6 @@ public class EmployeeService
     public boolean save(Employee employee)
     {
         // Check employee input value
-        return employeeDao.saveEmployee(employee);
+        return iEmployeeDao.saveEmployee(employee);
     }
 }

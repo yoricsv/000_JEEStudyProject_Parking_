@@ -7,6 +7,9 @@ import java.io.Serializable;
 
 import org.junit.Test;
 import org.junit.After;
+import pro.yoric.it.company.pojo.Company;
+import pro.yoric.it.company.pojo.Employee;
+import pro.yoric.it.company.pojo.EmployeeDetails;
 
 import static org.junit.Assert.*;
 

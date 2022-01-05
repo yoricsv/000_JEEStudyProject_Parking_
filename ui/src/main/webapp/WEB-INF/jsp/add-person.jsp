@@ -38,15 +38,15 @@
 
         <div class = "mb-3">
             <label  class = "form-label"
-                    for   = "second_name"
+                    for   = "surname"
             >
                 Last name
             </label>
-            <f:input aria-label = "Last name"
+            <f:input aria-label = "Surname"
                      class      = "form-control"
-                     id         = "second_name"
-                     name       = "secondName"
-                     path       = "secondName"
+                     id         = "surname"
+                     name       = "surname"
+                     path       = "surname"
                      type       = "text"
             />
         </div>

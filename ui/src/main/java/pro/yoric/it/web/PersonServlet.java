@@ -1,6 +1,6 @@
 package pro.yoric.it.web;
 
-import pro.yoric.it.pojo.Person;
+import pro.yoric.it.parking.pojo.Person;
 import pro.yoric.it.service.PersonService;
 
 import javax.servlet.ServletException;
@@ -48,9 +48,9 @@ public class PersonServlet
                 )
             );
 
-            person.setSecondName(
+            person.setSurname(
                 req.getParameter(
-                    "second_name"
+                    "surname"
                 )
             );
 

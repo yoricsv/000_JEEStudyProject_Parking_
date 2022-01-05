@@ -23,44 +23,126 @@
     </properties>
 
     <dependencies>
+        <!-- HIBERNATE (database management) -->
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>5.6.1.Final</version>
         </dependency>
 
+        <!-- MySQL (database connector) -->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.26</version>
         </dependency>
 
+        <!-- HIKARI (connection pool) -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.4.5</version>
+        </dependency>
+
+        <!-- LOMBOK (Adds classes to the artifact) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!-- SPRING DEPENDENCIES BEGIN -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>5.3.13</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>5.3.12</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>5.3.12</version>
+        </dependency>
+        <!-- SPRING DEPENDENCY END-->
+
+
+        <!-- DEPENDENCIES ONLY FOR TEST SCOPE BEGIN -->
+        <!-- JUnit (unit tests) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- DBUnit (database tests) -->
         <dependency>
             <groupId>org.dbunit</groupId>
             <artifactId>dbunit</artifactId>
             <version>2.7.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- SPRING (for tests) -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
         </dependency>
+        <!-- DEPENDENCIES ONLY FOR TEST SCOPE END -->
     </dependencies>
+
 
     <build>
         <plugins>
+            <!-- LOMBOK PLUGIN (Adds classes to the artifact) BEGIN -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.16</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <!-- LOMBOK PLUGIN (Adds classes to the artifact) END -->
+
+
+            <!-- LIQUIBASE PLUGIN (Automate database change process) BEGIN -->
             <plugin>
                 <groupId>org.liquibase</groupId>
                 <artifactId>liquibase-maven-plugin</artifactId>
                 <version>4.4.2</version>
 
                 <executions>
+                    <!-- CREATE PRODUCTION DATABASE BEGIN -->
                     <execution>
                         <id>create_prod_db</id>
                         <phase>process-resources</phase>
@@ -76,7 +158,10 @@
                             <changeLogFile>src/main/resources/changelog-parking.xml</changeLogFile>
                         </configuration>
                     </execution>
+                    <!-- CREATE PRODUCTION DATABASE BEGIN -->
 
+
+                    <!-- CREATE DATABASE FOR TESTS BEGIN -->
                     <execution>
                         <id>create_test_db</id>
                         <phase>process-resources</phase>
@@ -92,8 +177,10 @@
                             <changeLogFile>src/main/resources/changelog-parking.xml</changeLogFile>
                         </configuration>
                     </execution>
+                    <!-- CREATE DATABASE FOR TESTS END -->
                 </executions>
             </plugin>
+            <!-- LIQUIBASE PLUGIN (Automate database change process) END -->
         </plugins>
     </build>
 

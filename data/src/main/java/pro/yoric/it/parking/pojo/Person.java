@@ -1,4 +1,4 @@
-package pro.yoric.it.pojo;
+package pro.yoric.it.parking.pojo;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +24,8 @@ public class Person
     @Column (name = "name")
     private String name;
 
-    @Column (name = "second_name", length = 500)
-    private String secondName;
+    @Column (name = "surname", length = 500)
+    private String surname;
 
 //    // RELATIONS
 //    @OneToOne
@@ -46,9 +46,9 @@ public class Person
 //    {
 //        return name;
 //    }
-//    public String getSecondName()
+//    public String getSurname()
 //    {
-//        return secondName;
+//        return surname;
 //    }
 
 
@@ -61,8 +61,8 @@ public class Person
 //    {
 //        this.name = name;
 //    }
-//    public void setSecondName(String secondName)
+//    public void setSurname(String surname)
 //    {
-//        this.secondName = secondName;
+//        this.surname = surname;
 //    }
 }

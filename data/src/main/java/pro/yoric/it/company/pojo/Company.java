@@ -1,4 +1,4 @@
-package pro.yoric.it.company;
+package pro.yoric.it.company.pojo;
 
 import org.hibernate.annotations.GenericGenerator;
 

@@ -6,6 +6,6 @@ import lombok.Data;
 public class SearchTicketCriteriaDto
 {
     // FIELDS
-    private String fio;
+    private String fullName;
     private String login;
 }

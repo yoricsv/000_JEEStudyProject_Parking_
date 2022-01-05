@@ -1,6 +1,7 @@
-package pro.yoric.it.company;
+package pro.yoric.it.company.pojo;
 
 import org.hibernate.annotations.GenericGenerator;
+import pro.yoric.it.company.pojo.Employee;
 
 import javax.persistence.*;
 
@@ -37,7 +38,7 @@ public class Payslip
     // FIELDS RELATIONS
     @ManyToOne
     @JoinColumn(name = "employee_id")
-    private Employee   employee;
+    private Employee employee;
 
 
     // CONSTRUCTORS

@@ -119,7 +119,7 @@ class MySqlDataSource
             properties.load(
                 MySqlDataSource.class
                 .getResourceAsStream(
-                    "/company_test.ds.properties"
+                    "/company_test.ds-test.properties"
                 )
             );
 

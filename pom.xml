@@ -29,6 +29,15 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- LOMBOK (Adds classes to the artifact) -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>1.18.22</version>
+            </dependency>
+
+
+            <!-- SPRING DEPENDENCIES BEGIN -->
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
@@ -51,19 +60,26 @@
             </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>5.3.12</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>5.3.12</version>
+            </dependency>
+            <!-- SPRING DEPENDENCY END-->
+
+
+            <!-- DEPENDENCIES ONLY FOR TEST SCOPE BEGIN -->
+            <!-- SPRING (for tests) -->
+            <dependency>
+                <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>5.3.13</version>
-<!--                <scope>test</scope>-->
+                <scope>test</scope>
             </dependency>
-
-            <!-- ADD LOMBOK BEGIN (ADD CLASS in binary into output file) -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>1.18.22</version>
-<!--                <scope>provided</scope>-->
-            </dependency>
-            <!-- ADD LOMBOK END-->
+            <!-- DEPENDENCIES ONLY FOR TEST SCOPE END -->
         </dependencies>
     </dependencyManagement>
 

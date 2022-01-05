@@ -1,6 +1,6 @@
 package pro.yoric.it.validator;
 
-import pro.yoric.it.company.Employee;
+import pro.yoric.it.company.pojo.Employee;
 
 import org.springframework.stereotype.Component;
 
@@ -17,19 +17,12 @@ import org.springframework.stereotype.Component;
 public class BasicEmployeeValidator
     implements IEmployeeValidator
 {
-    // CONSTRUCTORS
-    public BasicEmployeeValidator()
-    {
-        super();
-    }
-
-
     // METHODS
     @Override
     public boolean validate(Employee employee)
     {
         System.out.println(
-            "Call the implementation of BasicEmployeeValidator"
+            "Calling the BasicEmployeeValidator implementation"
         );
 
         return false;

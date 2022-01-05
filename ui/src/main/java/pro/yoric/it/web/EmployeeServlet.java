@@ -1,6 +1,6 @@
 package pro.yoric.it.web;
 
-import pro.yoric.it.company.Employee;
+import pro.yoric.it.company.pojo.Employee;
 import pro.yoric.it.service.EmployeeService;
 
 import javax.servlet.ServletException;
@@ -36,8 +36,8 @@ public class EmployeeServlet
         {
             Employee employee =
                 new Employee(
-                    req.getParameter("firstName"),
-                    req.getParameter("secondName"),
+                    req.getParameter("name"),
+                    req.getParameter("surname"),
                     req.getParameter("phoneNumber")
             );
 

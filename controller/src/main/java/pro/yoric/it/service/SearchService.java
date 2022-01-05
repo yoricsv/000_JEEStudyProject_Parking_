@@ -1,14 +1,14 @@
 package pro.yoric.it.service;
 
-import pro.yoric.it.company.Company;
-import pro.yoric.it.company.Employee;
+import pro.yoric.it.company.pojo.Company;
+import pro.yoric.it.company.pojo.Employee;
 
-import pro.yoric.it.dao.IPersonDao;
 import pro.yoric.it.dao.ICompanySearchDao;
+import pro.yoric.it.dao.IPersonDao;
 
 import pro.yoric.it.dto.SearchResultDto;
 
-import pro.yoric.it.pojo.Person;
+import pro.yoric.it.parking.pojo.Person;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,8 +23,8 @@ public class SearchService
 {
     // INSTANCES
     @Autowired
-    private ICompanySearchDao companySearchDao;
-    //    private IEmployeeSearchDao employeeSearchDao;
+    private ICompanySearchDao iCompanySearchDao;
+    //    private IEmployeeSearchDao iEmployeeSearchDao;
     @Autowired
     private IPersonDao iPersonDao;
 
@@ -34,9 +34,11 @@ public class SearchService
     {
         List<SearchResultDto> results = new ArrayList<>();
 
-        final List<Company>  companySearchResults  = companySearchDao.search(searchParam);
+
+        final List<Company>  companySearchResults  = iCompanySearchDao.search(searchParam);
         final List<Employee> employeeSearchResults = Collections.emptyList();
         final List<Person>   personSearchResults   = iPersonDao.search(searchParam);
+
 
         results.addAll(
             companySearchResults
@@ -65,7 +67,7 @@ public class SearchService
                         "person",
                         person.getName()        +
                         " "                     +
-                        person.getSecondName()
+                        person.getSurname()
                     )
             )
             .collect(

@@ -7,7 +7,7 @@ public class SearchTicketResultDto
 {
     // FIELDS
     private String personId;
-    private String fio;
+    private String fullName;
     private String ticket;
     private String login;
 }

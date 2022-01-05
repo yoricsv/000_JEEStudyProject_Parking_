@@ -1,7 +1,9 @@
-package pro.yoric.it.data;
+package pro.yoric.it.parking;
 
+import org.springframework.stereotype.Repository;
 import pro.yoric.it.dao.ITicketDao;
-import pro.yoric.it.pojo.Ticket;
+import pro.yoric.it.data.DataSource;
+import pro.yoric.it.parking.pojo.Ticket;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Set;
 /**
  * CRUD (Create Read Update Delete)
  */
+@Repository
 public class TicketDao
     implements ITicketDao
 {

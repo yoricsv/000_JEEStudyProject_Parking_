@@ -9,7 +9,7 @@ public class AddNewUserCommandDto
 {
     // FIELDS
     private String        name;
-    private String        secondName;
+    private String        surname;
     private String        command;
     private String        login;
     private String        password;

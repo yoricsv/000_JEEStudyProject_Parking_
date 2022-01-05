@@ -1,4 +1,4 @@
-package pro.yoric.it.company;
+package pro.yoric.it.company.pojo;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,11 +23,11 @@ public class Employee
     )
     private String id;
 
-    @Column(name  = "first_name")
-    private String firstName;
+    @Column(name  = "name")
+    private String name;
 
-    @Column(name  = "second_name")
-    private String secondName;
+    @Column(name  = "surname")
+    private String surname;
 
     @Column(name  = "phone_number")
     private String phoneNumber;
@@ -63,13 +63,13 @@ public class Employee
     // CONSTRUCTORS
     public Employee(){ }
     public Employee(
-            String firstName,
-            String secondName,
+            String name,
+            String surname,
             String phoneNumber
         )
     {
-        this.firstName   = firstName;
-        this.secondName  = secondName;
+        this.name        = name;
+        this.surname     = surname;
         this.phoneNumber = phoneNumber;
     }
 
@@ -78,11 +78,11 @@ public class Employee
     public String          getId() {
         return id;
     }
-    public String          getFirstName() {
-        return firstName;
+    public String          getName() {
+        return name;
     }
-    public String          getSecondName() {
-        return secondName;
+    public String          getSurname() {
+        return surname;
     }
     public String          getPhoneNumber() {
         return phoneNumber;
@@ -101,11 +101,11 @@ public class Employee
 
 
     // SETTERS
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setSurname(String surname) {
+        this.surname = surname;
     }
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;

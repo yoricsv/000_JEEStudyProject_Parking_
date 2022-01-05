@@ -4,18 +4,19 @@ import pro.yoric.it.company.CompanyDao;
 import pro.yoric.it.company.EmployeeDao;
 import pro.yoric.it.company.PayslipDao;
 
-import pro.yoric.it.dao.ICompanySearchDao;
 import pro.yoric.it.dao.IAppParkingUserDao;
+import pro.yoric.it.dao.ICompanySearchDao;
 import pro.yoric.it.dao.IPersonDao;
 import pro.yoric.it.dao.ITicketDao;
 
-import pro.yoric.it.data.AppParkingUserDao;
-import pro.yoric.it.data.PersonDao;
-import pro.yoric.it.data.TicketDao;
+import pro.yoric.it.parking.AppParkingUserDao;
+import pro.yoric.it.parking.PersonDao;
+import pro.yoric.it.parking.TicketDao;
 
 import lombok.Getter;
 
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -26,7 +27,10 @@ import org.springframework.context.annotation.PropertySource;
     "controllerConfiguration"
 )
 @ComponentScan(
-    basePackages = "pro.yoric.it"                   // might need use "pro.yoric"
+    basePackages = {
+        "pro.yoric.it.service",                     // might need use "pro.yoric"
+        "pro.yoric.it.validator"
+    }
 )
 @PropertySource(
     "classpath:/controller.properties"              // PATH TO controller/src/main/resources/controller.properties
@@ -49,15 +53,21 @@ public class ControllerSpringConfig
     }
 
     @Bean
-    public ICompanySearchDao companySearchDao()
+    public IAppParkingUserDao iAppParkingUserDao()
+    {
+        return new AppParkingUserDao();
+    }
+
+    @Bean
+    public ICompanySearchDao iCompanySearchDao()
     {
         return new CompanyDao();
     }
 
     @Bean
-    public IAppParkingUserDao iAppParkingUserDao()
+    public IPersonDao iPersonDao()
     {
-        return new AppParkingUserDao();
+        return new PersonDao();
     }
 
     @Bean
@@ -65,11 +75,5 @@ public class ControllerSpringConfig
         throws ClassNotFoundException
     {
         return new TicketDao();
-    }
-
-    @Bean
-    public IPersonDao iPersonDao()
-    {
-        return new PersonDao();
     }
 }

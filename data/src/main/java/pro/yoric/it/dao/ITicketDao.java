@@ -1,6 +1,6 @@
 package pro.yoric.it.dao;
 
-import pro.yoric.it.pojo.Ticket;
+import pro.yoric.it.parking.pojo.Ticket;
 
 import java.sql.SQLException;
 import java.util.List;

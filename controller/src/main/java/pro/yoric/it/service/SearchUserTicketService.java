@@ -7,9 +7,9 @@ import pro.yoric.it.dao.ITicketDao;
 import pro.yoric.it.dto.SearchTicketCriteriaDto;
 import pro.yoric.it.dto.SearchTicketResultDto;
 
-import pro.yoric.it.pojo.AppParkingUser;
-import pro.yoric.it.pojo.Person;
-import pro.yoric.it.pojo.Ticket;
+import pro.yoric.it.parking.pojo.AppParkingUser;
+import pro.yoric.it.parking.pojo.Person;
+import pro.yoric.it.parking.pojo.Ticket;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,11 +25,11 @@ public class SearchUserTicketService
 {
     // INSTANCES
     @Autowired
-    private IAppParkingUserDao userDao;
+    private IAppParkingUserDao iUserDao;
     @Autowired
-    private ITicketDao         ticketDao;
+    private ITicketDao         iTicketDao;
     @Autowired
-    private IPersonDao         personDao;
+    private IPersonDao         iPersonDao;
 
 
     // METHOD
@@ -37,17 +37,17 @@ public class SearchUserTicketService
             SearchTicketCriteriaDto searchTicketCriteria
         )
     {
-        String   fio   = searchTicketCriteria.getFio();
-        String[] names = fio.split(" ");
+        String   fullName = searchTicketCriteria.getFullName();
+        String[] names    = fullName.split(" ");
 
         final List<Person> personList =
-            personDao
-            .searchByNameAndSecondName(
+            iPersonDao
+            .searchByNameAndSurname(
                 names[1],
                 names[0]
             );
         final List<AppParkingUser> appParkingUsers =
-            userDao
+            iUserDao
             .searchByAppParkingUserLogin(
                 searchTicketCriteria
                 .getLogin()
@@ -76,7 +76,7 @@ public class SearchUserTicketService
         );
 
         final List<Ticket> tickets =
-            ticketDao
+            iTicketDao
             .findByPersonId(
                 personIds
             );
@@ -100,10 +100,10 @@ public class SearchUserTicketService
                         );
 
                         result
-                        .setFio(
+                        .setFullName(
                             ticket
                             .getPerson()
-                            .getSecondName() +
+                            .getSurname() +
                             " "              +
                             ticket
                             .getPerson()
@@ -120,7 +120,7 @@ public class SearchUserTicketService
 
                         result
                         .setLogin(
-                            userDao
+                            iUserDao
                             .findUserByPersonId(
                                 ticket
                                 .getPerson()

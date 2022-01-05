@@ -1,7 +1,11 @@
-package pro.yoric.it.data;
+package pro.yoric.it.parking;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
 import pro.yoric.it.dao.IAppParkingUserDao;
-import pro.yoric.it.pojo.AppParkingUser;
+import pro.yoric.it.data.SessionFactoryHolder;
+import pro.yoric.it.parking.pojo.AppParkingUser;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -9,18 +13,14 @@ import org.hibernate.Transaction;
 
 import java.util.List;
 
+@Repository
 public class AppParkingUserDao
     implements IAppParkingUserDao
 {
     // INSTANCES
-    private final SessionFactory sessionFactory;
-
-
-    // CONSTRUCTORS
-    public AppParkingUserDao()
-    {
-        sessionFactory = SessionFactoryHolder.getSessionFactory();
-    }
+    @Autowired
+    @Qualifier("parkingSessionFactory")
+    private SessionFactory sessionFactory;
 
 
     // GETTERS

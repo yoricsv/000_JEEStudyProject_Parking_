@@ -1,5 +1,10 @@
 package pro.yoric.it.company;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.springframework.stereotype.Repository;
+import pro.yoric.it.dao.IPayslipDao;
 import pro.yoric.it.data.SessionFactoryHolder;
 
 import org.hibernate.Session;
@@ -8,10 +13,14 @@ import org.hibernate.query.Query;
 
 import java.math.BigDecimal;
 
+@Repository
 public class PayslipDao
+    implements IPayslipDao
 {
     // INSTANCES
-    private final SessionFactory sessionFactory;
+    @Autowired
+    @Qualifier("companySessionFactory")
+    private SessionFactory sessionFactory;
 
 
     // CONSTRUCTORS
@@ -26,10 +35,11 @@ public class PayslipDao
 
 
     // GETTERS
+    @Override
     public BigDecimal getAnnualSalary(
             String employeeId,
             short year
-        )
+    )
     {
         Session session = sessionFactory.openSession();
         session.getCriteriaBuilder();

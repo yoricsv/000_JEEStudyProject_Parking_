@@ -18,13 +18,13 @@
 
             <div class = "mb-3">
                 <label class = "form-label"
-                       for   = "firstName"
+                       for   = "name"
                 >
                     Default file input example
                 </label>
 
                 <input class = "form-control"
-                        id   = "firstName"
+                        id   = "name"
                         type = "text"
                 />
             </div>

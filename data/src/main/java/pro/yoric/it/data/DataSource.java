@@ -12,7 +12,7 @@ public class DataSource
         this.useTestDataSource = useTestDataSource;
     }
 
-    protected Connection getConnection()
+    public Connection getConnection()
         throws SQLException
     {
         return

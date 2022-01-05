@@ -10,7 +10,7 @@
     <h2>
         <c:out value = "${sessionScope.currentPerson.name}" />
         <br/>
-        <c:out value = "${sessionScope.currentPerson.secondName}"/>
+        <c:out value = "${sessionScope.currentPerson.surname}"/>
     </h2>
 
 <jsp:include page = "_footer.jsp"/>

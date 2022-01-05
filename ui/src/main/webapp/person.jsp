@@ -29,7 +29,7 @@
                 </td>
 
                 <td>
-                    ${person.secondName}
+                    ${person.surname}
                 </td>
             </tr>
 

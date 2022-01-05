@@ -3,6 +3,10 @@ package pro.yoric.it.company;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.math.BigDecimal;
 
@@ -15,18 +19,18 @@ import static org.junit.Assert.assertEquals;
  * EXAMPLE: cleanInsert("/pro/yoric/it/company/PayslipDaoTest.xml");
  * There is we transmit prepared data to check units operating
  */
-
+@ContextConfiguration(
+    classes = ControllerSpringConfig.class
+)
+@RunWith(
+    SpringJUnit4ClassRunner.class
+)
 public class PayslipDaoTest
     extends BaseDbUnitTest
 {
     // INSTANCES
+    @Autowired
     private PayslipDao payslipDao;
-
-    @Before
-    public void setUp()
-    {
-        payslipDao = new PayslipDao(sessionFactory);
-    }
 
     @Test
     public void getAnnualSalary()

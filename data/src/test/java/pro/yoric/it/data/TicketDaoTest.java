@@ -1,6 +1,11 @@
 package pro.yoric.it.data;
 
-import pro.yoric.it.pojo.Ticket;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import pro.yoric.it.parking.TicketDao;
+import pro.yoric.it.parking.pojo.Ticket;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,17 +16,17 @@ import java.util.Date;
 
 import static org.junit.Assert.*;
 
+@ContextConfiguration(
+        classes = ControllerSpringConfig.class
+)
+@RunWith(
+        SpringJUnit4ClassRunner.class
+)
 public class TicketDaoTest
 {
     // INSTANCES
+    @Autowired
     TicketDao ticketDao;
-
-    @Before
-    public void setUp()
-        throws Exception
-    {
-        ticketDao = new TicketDao(true);
-    }
 
     @Test
     public void testInstance()
@@ -52,8 +57,10 @@ public class TicketDaoTest
         ticketDao.deleteAll();
     }
 
-    @After
+    @org.junit.AfterClass
     public void tearDown()
         throws Exception
-    { }
+    {
+        ticketDao = null;
+    }
 }

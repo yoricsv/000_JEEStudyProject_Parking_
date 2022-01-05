@@ -2,7 +2,7 @@ package pro.yoric.it.service;
 
 import pro.yoric.it.dto.AddNewUserCommandDto;
 
-import pro.yoric.it.pojo.Person;
+import pro.yoric.it.parking.pojo.Person;
 
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,7 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 
 @Controller
-@SessionAttributes("currentPerson")
+@SessionAttributes("currentPerson")             // to using session
 public class AddNewUserController
 {
     @Autowired
@@ -94,7 +94,7 @@ public class AddNewUserController
             personService
             .findPerson(
                 addNewUserCommandDto.getName(),
-                addNewUserCommandDto.getSecondName()
+                addNewUserCommandDto.getSurname()
             );
 
         System.out.println(person);

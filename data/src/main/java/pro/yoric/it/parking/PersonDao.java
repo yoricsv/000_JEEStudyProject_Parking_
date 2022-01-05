@@ -1,7 +1,9 @@
-package pro.yoric.it.data;
+package pro.yoric.it.parking;
 
+import org.springframework.stereotype.Repository;
 import pro.yoric.it.dao.IPersonDao;
-import pro.yoric.it.pojo.Person;
+import pro.yoric.it.data.SessionFactoryHolder;
+import pro.yoric.it.parking.pojo.Person;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,6 +15,7 @@ import java.util.List;
 /**
  * CRUD (Create Read Update Delete)
  */
+@Repository
 public class PersonDao
     implements IPersonDao
 {
@@ -101,9 +104,9 @@ public class PersonDao
     }
 
     @Override
-    public List<Person> searchByNameAndSecondName(
+    public List<Person> searchByNameAndSurname(
             String name,
-            String secondName
+            String surname
         )
     {
         Session session = sessionFactory.openSession();
@@ -116,7 +119,7 @@ public class PersonDao
                 "WHERE "            +
                     "p.name=:name " +
                 "AND "              +
-                    "p.secondName=:secondName ",
+                    "p.surname=:surname ",
                 Person.class
             )
             .setParameter(
@@ -124,8 +127,8 @@ public class PersonDao
                 name
             )
             .setParameter(
-                "secondName",
-                secondName
+                "surname",
+                surname
             )
             .list();
 
@@ -150,7 +153,7 @@ public class PersonDao
                     "'%"            + param +
                     "%' "           +
                 "OR "               +
-                    "p.secondName " +
+                    "p.surname " +
                 "LIKE "             +
                     "'%"            + param +
                     "%' ",

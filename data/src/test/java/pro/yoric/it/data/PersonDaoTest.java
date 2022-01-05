@@ -1,7 +1,7 @@
 package pro.yoric.it.data;
 
-import pro.yoric.it.company.BaseTest;
-import pro.yoric.it.pojo.Person;
+import pro.yoric.it.parking.PersonDao;
+import pro.yoric.it.parking.pojo.Person;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.MetadataSources;
@@ -23,7 +23,7 @@ public class PersonDaoTest
 {
     // INSTANCES
     static SessionFactory sessionFactory;
-           PersonDao      personDao;
+           PersonDao personDao;
 
     @BeforeClass
     public static void init()
@@ -54,7 +54,7 @@ public class PersonDaoTest
 
         person.setId(1001L);
         person.setName("Ivan");
-        person.setSecondName("Petrov");
+        person.setSurname("Petrov");
 
         // WHEN
         Serializable id = personDao.savePerson(person);

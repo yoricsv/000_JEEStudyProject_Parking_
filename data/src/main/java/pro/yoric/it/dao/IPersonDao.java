@@ -1,6 +1,6 @@
 package pro.yoric.it.dao;
 
-import pro.yoric.it.pojo.Person;
+import pro.yoric.it.parking.pojo.Person;
 
 import java.io.Serializable;
 import java.util.List;
@@ -13,9 +13,9 @@ public interface IPersonDao
 
     void deletePerson(Person person);
 
-    List<Person> searchByNameAndSecondName(
+    List<Person> searchByNameAndSurname(
         String name,
-        String secondName
+        String surname
     );
 
     List<Person> search(String param);

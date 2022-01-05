@@ -30,6 +30,9 @@
             <scope>compile</scope>
         </dependency>
 
+
+        <!-- JAKARTA DEPENDENCIES BEGIN -->
+        <!-- (doesn't work with Spring) -->
 <!--        <dependency>-->
 <!--            <groupId>jakarta.servlet</groupId>-->
 <!--            <artifactId>jakarta.servlet-api</artifactId>-->
@@ -41,63 +44,90 @@
 <!--            <artifactId>jakarta.servlet.jsp.jstl</artifactId>-->
 <!--            <version>2.0.0</version>-->
 <!--        </dependency>-->
+        <!-- JAKARTA DEPENDENCIES END -->
 
+
+        <!-- JAVAX DEPENDENCIES BEGIN -->
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
             <version>4.0.1</version>
-<!--            <scope>provided</scope>-->
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+        <!-- JAVAX DEPENDENCIES END -->
 
-        <!-- TO UPLOAD FILE -->
+
+        <!-- SPRING DEPENDENCIES BEGIN -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <!-- SPRING DEPENDENCIES END-->
+
+
+        <!-- FILE UPLOADER (to upload files from web) -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
 
+
+        <!-- DEPENDENCIES ONLY FOR TEST SCOPE BEGIN -->
+        <!-- SPRING (for tests) -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
         </dependency>
+        <!-- DEPENDENCIES ONLY FOR TEST SCOPE END -->
     </dependencies>
+
 
     <build>
         <plugins>
+            <!-- MAVEN WAR PLUGIN (collects all artifact dependencies) BEGIN -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.1</version>
+
                 <configuration>
                     <warName>ui</warName>
                 </configuration>
             </plugin>
+            <!-- MAVEN WAR PLUGIN (collects all artifact dependencies) END -->
 
+
+            <!-- APACHE TOMCAT PLUGIN (servlet container) BEGIN -->
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
+
                 <executions>
                     <execution>
                         <id>deployToTomcat9</id>
                         <phase>install</phase>
+
                         <goals>
                             <goal>undeploy</goal>
                             <goal>deploy</goal>
                         </goals>
                     </execution>
                 </executions>
+
                 <configuration>
                     <warFile>target\ui.war</warFile>
                     <username>tomcat</username>
                     <password>tomcat</password>
                 </configuration>
             </plugin>
+            <!-- APACHE TOMCAT PLUGIN (servlet container) END -->
         </plugins>
     </build>
 

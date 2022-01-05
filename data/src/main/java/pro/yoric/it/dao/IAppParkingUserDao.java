@@ -1,6 +1,6 @@
 package pro.yoric.it.dao;
 
-import pro.yoric.it.pojo.AppParkingUser;
+import pro.yoric.it.parking.pojo.AppParkingUser;
 
 import java.util.List;
 

@@ -7,7 +7,9 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.junit.Test;
+import pro.yoric.it.company.pojo.Employee;
+import pro.yoric.it.company.pojo.Meeting;
+
 import static org.junit.Assert.*;
 
 public class MeetingTest
@@ -27,7 +29,7 @@ public class MeetingTest
         return
             new Employee(
                 "Name" + count,
-                "SecondName" + count,
+                "Surname" + count,
                 "+8029123456" + count
             );
     }

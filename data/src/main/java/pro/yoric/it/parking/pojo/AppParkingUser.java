@@ -1,4 +1,4 @@
-package pro.yoric.it.pojo;
+package pro.yoric.it.parking.pojo;
 
 import lombok.Getter;
 import lombok.Setter;

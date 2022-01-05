@@ -30,14 +30,15 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- LOMBOK -->
+        <!-- LOMBOK (Adds classes to the artifact) -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
 
-        <!-- SPRING DEPENDENCY BEGIN -->
+
+        <!-- SPRING DEPENDENCIES BEGIN -->
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
@@ -62,28 +63,66 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-test</artifactId>
-            <scope>test</scope>
+            <artifactId>spring-orm</artifactId>
+            <version>5.3.12</version>
         </dependency>
-        <!-- SPRING DEPENDENCY END-->
+        <!-- SPRING DEPENDENCIES END-->
 
+
+        <!-- FILE UPLOADER (to upload files from web) -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
             <version>1.4</version>
         </dependency>
 
+
+        <!-- DEPENDENCIES ONLY FOR TEST SCOPE BEGIN -->
+        <!-- HIBERNATE (database management) -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>5.6.1.Final</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- MySQL (database) -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.26</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JUnit (unit tests) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.13.2</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- SPRING (for tests) -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- HIKARI (connection pool) -->
+        <dependency>
+            <groupId>com.zaxxer</groupId>
+            <artifactId>HikariCP</artifactId>
+            <version>3.4.5</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- DEPENDENCIES ONLY FOR TEST SCOPE END -->
     </dependencies>
 
-    <!-- ADD LAMBOK (ADD CLASS in binary output file)-->
+
     <build>
         <plugins>
+            <!-- LOMBOK PLUGIN (Adds classes to the artifact) BEGIN -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -99,6 +138,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+            <!-- LOMBOK PLUGIN (Adds classes to the artifact) END -->
         </plugins>
     </build>
 

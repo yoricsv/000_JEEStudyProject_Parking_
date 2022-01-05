@@ -1,5 +1,9 @@
 package pro.yoric.it.company;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Repository;
+import pro.yoric.it.company.pojo.Company;
 import pro.yoric.it.dao.ICompanySearchDao;
 import pro.yoric.it.data.SessionFactoryHolder;
 
@@ -8,20 +12,15 @@ import org.hibernate.SessionFactory;
 
 import java.util.List;
 
+@Repository
 public class CompanyDao
     implements ICompanySearchDao
 {
     // INSTANCES
-    private final SessionFactory sessionFactory;
+    @Autowired
+    @Qualifier("companySessionFactory")
+    private SessionFactory sessionFactory;
 
-
-    // CONSTRUCTORS
-    public CompanyDao()
-    {
-        this.sessionFactory =
-            SessionFactoryHolder
-            .getSessionFactoryCompany();
-    }
 
     // METHODS
     @Override
