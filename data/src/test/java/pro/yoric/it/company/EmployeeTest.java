@@ -1,30 +1,29 @@
 package pro.yoric.it.company;
 
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
-import java.io.Serializable;
-
-import org.junit.Test;
-import org.junit.After;
 import pro.yoric.it.company.pojo.Company;
 import pro.yoric.it.company.pojo.Employee;
 import pro.yoric.it.company.pojo.EmployeeDetails;
 
-import static org.junit.Assert.*;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
+
+import org.junit.Test;
+
+import java.io.Serializable;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class EmployeeTest
     extends BaseTest
 {
-    // INSTANCES
-    Session session;
-
     @Test
     public void testSave()
         throws InterruptedException
     {
         // GIVEN
-        session = sessionFactory.openSession();
+        Session session = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
         Employee employee =
@@ -33,17 +32,30 @@ public class EmployeeTest
                 "Petrov",
                 "+375295554433"
             );
-        EmployeeDetails details = new EmployeeDetails("Lenina 21, Minsk");
+        EmployeeDetails details =
+            new EmployeeDetails(
+                "Lenina 21, Minsk"
+            );
 
         employee.setEmployeeDetails(details);
         details.setEmployee(employee);
 
         // WHEN
-        Serializable id = session.save(employee);
+        Serializable serializableId =
+            session
+            .save(
+                employee
+            );
+
         transaction.commit();
 
         // THEN
-        Employee saved = session.get(Employee.class, id);
+        Employee saved =
+            session
+            .get(
+                Employee.class,
+                serializableId
+            );
 
         System.out.println(saved.getId());
 
@@ -55,7 +67,10 @@ public class EmployeeTest
     public void saveCompanyWithEmployees()
     {
         // GIVEN
-        Company company = new Company("Coca-cola");
+        Company company =
+            new Company(
+                "Coca-cola"
+            );
 
         Employee employee1 =
             new Employee(
@@ -74,27 +89,27 @@ public class EmployeeTest
         employee2.setCompany(company);
 
         // WHEN
-        session = sessionFactory.openSession();
+        Session     session     = sessionFactory.openSession();
         Transaction transaction = session.beginTransaction();
 
         Serializable companyId  = session.save(company);
+
         session.save(employee1);
         session.save(employee2);
 
         transaction.commit();
 
         // THEN
-        Company saved = session.load(Company.class, companyId);
+        Company saved =
+            session
+            .load(
+                Company.class,
+                companyId
+            );
 
         session.refresh(saved);
 
         assertEquals(2, saved.getEmployees().size());
-    }
-
-    @After
-    public void tearDown()
-    {
-        session.close();
     }
 }
 

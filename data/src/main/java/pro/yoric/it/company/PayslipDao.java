@@ -1,11 +1,11 @@
 package pro.yoric.it.company;
 
+import pro.yoric.it.dao.IPayslipDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
 import org.springframework.stereotype.Repository;
-import pro.yoric.it.dao.IPayslipDao;
-import pro.yoric.it.data.SessionFactoryHolder;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,25 +23,15 @@ public class PayslipDao
     private SessionFactory sessionFactory;
 
 
-    // CONSTRUCTORS
-    public PayslipDao()
-    {
-        sessionFactory = SessionFactoryHolder.getSessionFactoryCompany();
-    }
-    public PayslipDao(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-    }
-
-
     // GETTERS
     @Override
     public BigDecimal getAnnualSalary(
             String employeeId,
-            short year
-    )
+            short  year
+        )
     {
         Session session = sessionFactory.openSession();
+
         session.getCriteriaBuilder();
 
         final Query<?> query =
@@ -60,15 +50,20 @@ public class PayslipDao
  *                                                              *
  *          IS A MISTAKE -->   "t_payslip p "  +                *
  * ************************************************************ */
-
                 "WHERE "                                 +
                         "p.employee.id=:employee_id "    +
                     "AND "                               +
                         "p.year=:year"
             );
 
-        query.setParameter("employee_id", employeeId);
-        query.setParameter("year", year);
+        query.setParameter(
+            "employee_id",
+            employeeId
+        );
+        query.setParameter(
+            "year",
+            year
+        );
 
         BigDecimal sum = (BigDecimal) query.uniqueResult();
 

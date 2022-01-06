@@ -1,10 +1,14 @@
 package pro.yoric.it.company;
-        
+
+import pro.yoric.it.config.TestDaoConfiguration;
+import pro.yoric.it.dao.IPayslipDao;
+
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,7 +24,7 @@ import static org.junit.Assert.assertEquals;
  * There is we transmit prepared data to check units operating
  */
 @ContextConfiguration(
-    classes = ControllerSpringConfig.class
+    classes = TestDaoConfiguration.class
 )
 @RunWith(
     SpringJUnit4ClassRunner.class
@@ -30,11 +34,21 @@ public class PayslipDaoTest
 {
     // INSTANCES
     @Autowired
-    private PayslipDao payslipDao;
+    Environment environment;
+    @Autowired
+    private IPayslipDao payslipDao;
 
     @Test
     public void getAnnualSalary()
     {
+        System.out.println(
+            "company.url="   +
+            environment
+            .getProperty(
+                "company.url"
+            )
+        );
+
         // GIVEN
 //        cleanInsert("PayslipDaoTest.xml");
         cleanInsert("/pro/yoric/it/company/PayslipDaoTest.xml");
@@ -55,6 +69,6 @@ public class PayslipDaoTest
     public void tearDown()
     {
         payslipDao = null;
-        deleteDataset();
+//        deleteDataset();
     }
 } 

@@ -1,15 +1,20 @@
 package pro.yoric.it.parking;
 
-import org.springframework.stereotype.Repository;
 import pro.yoric.it.dao.IPersonDao;
-import pro.yoric.it.data.SessionFactoryHolder;
+
 import pro.yoric.it.parking.pojo.Person;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.springframework.stereotype.Repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 import java.io.Serializable;
+
 import java.util.List;
 
 /**
@@ -19,16 +24,20 @@ import java.util.List;
 public class PersonDao
     implements IPersonDao
 {
+    @Autowired
+    @Qualifier("parkingSessionFactory")
+    private SessionFactory sessionFactory;
+
     /** CREATE */
-    // CONSTRUCTORS
-    public PersonDao()
-    {
-        this(SessionFactoryHolder.getSessionFactory());
-    }
-    public PersonDao(SessionFactory sessionFactory)
-    {
-        this.sessionFactory = sessionFactory;
-    }
+    // CONSTRUCTORS (WILL CREATE BY SPRING)
+//    public PersonDao()
+//    {
+//        this(SessionFactoryHolder.getSessionFactory());
+//    }
+//    public PersonDao(SessionFactory sessionFactory)
+//    {
+//        this.sessionFactory = sessionFactory;
+//    }
 
     /** READ */
     @Override
@@ -40,11 +49,11 @@ public class PersonDao
             session
             .createQuery(
                 "FROM Person",      // HQL, not SQL! HQL works with a persistent object not a Table!!!
-                Person.class)
+                Person.class
+            )
             .list();
 
         session.close();
-
         return personList;
     }
 
@@ -62,6 +71,7 @@ public class PersonDao
             transaction    = session.beginTransaction();
 
             serializableId = session.save(person);
+
             transaction.commit();
         }
         catch (Exception e)
@@ -90,6 +100,7 @@ public class PersonDao
             transaction = session.beginTransaction();
 
             session.delete(person);
+
             transaction.commit();
         }
         catch (Exception e)
@@ -133,7 +144,6 @@ public class PersonDao
             .list();
 
         session.close();
-
         return personList;
     }
 
@@ -150,13 +160,13 @@ public class PersonDao
                 "WHERE "            +
                     "p.name "       +
                 "LIKE "             +
-                    "'%"            + param +
-                    "%' "           +
+                    "\"%"           + param +
+                    "%\" "          +
                 "OR "               +
-                    "p.surname " +
+                    "p.surname "    +
                 "LIKE "             +
-                    "'%"            + param +
-                    "%' ",
+                    "\"%"           + param +
+                    "%\"",
                 Person.class
             )
             .list();
@@ -165,6 +175,4 @@ public class PersonDao
 
         return personList;
     }
-
-    private final SessionFactory sessionFactory;
 }

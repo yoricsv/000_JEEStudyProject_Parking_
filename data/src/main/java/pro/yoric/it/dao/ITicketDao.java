@@ -8,22 +8,20 @@ import java.util.Set;
 
 public interface ITicketDao
 {
-    // GETTERS
-    List<Ticket> readAllTickets()
-            throws SQLException;
-
-    Ticket getTicketByNumber(String licensePlateNumber)
-            throws SQLException;
-
-    // SETTERS
+    // CREATE
     void saveNewTicket(Ticket ticket)
-            throws SQLException;
+        throws SQLException;
 
+    // READ
+    List<Ticket> readAllTickets   ()
+        throws SQLException;
+    List<Ticket> findByPersonId   (Set<Long> ids);
+    Ticket       getTicketByNumber(String carNumber)
+        throws SQLException;
+
+    // DELETE
     void deleteAll()
-            throws SQLException;
-
+        throws SQLException;
     void removeByNumber(String number)
-            throws SQLException;
-
-    List<Ticket> findByPersonId(Set<Long> ids);
+        throws SQLException;
 }

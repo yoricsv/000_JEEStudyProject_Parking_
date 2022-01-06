@@ -1,7 +1,6 @@
 package pro.yoric.it.company.pojo;
 
 import org.hibernate.annotations.GenericGenerator;
-import pro.yoric.it.company.pojo.Employee;
 
 import javax.persistence.*;
 

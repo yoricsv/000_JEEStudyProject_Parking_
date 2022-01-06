@@ -1,11 +1,13 @@
 package pro.yoric.it.parking;
 
+import pro.yoric.it.dao.IAppParkingUserDao;
+
+import pro.yoric.it.parking.pojo.AppParkingUser;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Repository;
-import pro.yoric.it.dao.IAppParkingUserDao;
-import pro.yoric.it.data.SessionFactoryHolder;
-import pro.yoric.it.parking.pojo.AppParkingUser;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,20 +25,7 @@ public class AppParkingUserDao
     private SessionFactory sessionFactory;
 
 
-    // GETTERS
-    @Override
-    public List<AppParkingUser> searchByAppParkingUserLogin(String login)
-    {
-        return null;
-    }
-    @Override
-    public String findUserByPersonId(Long id)
-    {
-        return null;
-    }
-
-
-    // SETTERS
+    // CREATE (SETTERS)
     @Override
     public void saveUser(AppParkingUser user)
     {
@@ -55,5 +44,17 @@ public class AppParkingUserDao
         }
 
         session.close();
+    }
+
+    // READ (GETTERS)
+    @Override
+    public String               findUserByPersonId         (Long id)
+    {
+        return null;
+    }
+    @Override
+    public List<AppParkingUser> searchByAppParkingUserLogin(String login)
+    {
+        return null;
     }
 }

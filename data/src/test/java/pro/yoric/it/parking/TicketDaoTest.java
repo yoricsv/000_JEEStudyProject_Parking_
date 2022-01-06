@@ -1,32 +1,37 @@
-package pro.yoric.it.data;
+package pro.yoric.it.parking;
 
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import pro.yoric.it.parking.TicketDao;
+import pro.yoric.it.config.TestDaoConfiguration;
+
+import pro.yoric.it.dao.ITicketDao;
+
 import pro.yoric.it.parking.pojo.Ticket;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.After;
+import org.junit.runner.RunWith;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.sql.SQLException;
+
 import java.util.Date;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 @ContextConfiguration(
-        classes = ControllerSpringConfig.class
+    classes = TestDaoConfiguration.class
 )
 @RunWith(
-        SpringJUnit4ClassRunner.class
+    SpringJUnit4ClassRunner.class
 )
 public class TicketDaoTest
 {
     // INSTANCES
     @Autowired
-    TicketDao ticketDao;
+    ITicketDao ticketDao;
 
     @Test
     public void testInstance()
@@ -55,12 +60,5 @@ public class TicketDaoTest
         assertEquals("5322HH-4", ticket.getCarNumber());
 
         ticketDao.deleteAll();
-    }
-
-    @org.junit.AfterClass
-    public void tearDown()
-        throws Exception
-    {
-        ticketDao = null;
     }
 }

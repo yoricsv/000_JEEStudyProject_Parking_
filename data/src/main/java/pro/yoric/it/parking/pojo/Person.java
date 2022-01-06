@@ -7,10 +7,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 import java.io.Serializable;
 
 @Entity
-@Table(name = "t_persons")                      // to check, see: data/src/main/resources/changelog-parking.xml
+@Table(     // to check, see: data/src/main/resources/changelog-parking.xml
+    name = "t_persons"
+)
 @Getter
 @Setter
 public class Person
@@ -18,13 +21,20 @@ public class Person
 {
     // FIELDS
     @Id
-    @Column (name = "person_id")
+    @Column(
+        name   = "person_id"
+    )
     private Long   id;
 
-    @Column (name = "name")
+    @Column(
+        name   = "name"
+    )
     private String name;
 
-    @Column (name = "surname", length = 500)
+    @Column(
+        name   = "surname",
+        length = 500
+    )
     private String surname;
 
 //    // RELATIONS

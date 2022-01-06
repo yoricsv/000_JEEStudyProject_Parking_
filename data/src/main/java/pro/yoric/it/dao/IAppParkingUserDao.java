@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface IAppParkingUserDao
 {
-    List<AppParkingUser> searchByAppParkingUserLogin(String login);
-
-    String findUserByPersonId(Long id);
-
+    // CREATE
     void saveUser(AppParkingUser user);
+
+    // READ
+    String               findUserByPersonId         (Long id);
+    List<AppParkingUser> searchByAppParkingUserLogin(String login);
 }

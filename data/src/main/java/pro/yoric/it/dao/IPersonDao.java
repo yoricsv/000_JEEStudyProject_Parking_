@@ -7,16 +7,19 @@ import java.util.List;
 
 public interface IPersonDao
 {
-    List<Person> readPerson();
-
+    // CREATE
     Serializable savePerson(Person person);
 
-    void deletePerson(Person person);
-
+    // READ
+    List<Person> readPerson();
+    List<Person> search(
+        String param
+    );
     List<Person> searchByNameAndSurname(
         String name,
         String surname
     );
 
-    List<Person> search(String param);
+    // DELETE
+    void deletePerson(Person person);
 }

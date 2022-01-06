@@ -29,9 +29,9 @@
 
 		<!-- POJO CLASSES MAPPING -->
         <mapping package = "by.academy.it.company"/>
+        <mapping class   = "pro.yoric.it.company.pojo.Company"/>
         <mapping class   = "pro.yoric.it.company.pojo.Employee"/>
         <mapping class   = "pro.yoric.it.company.pojo.EmployeeDetails"/>
-        <mapping class   = "pro.yoric.it.company.pojo.Company"/>
         <mapping class   = "pro.yoric.it.company.pojo.Meeting"/>
         <mapping class   = "pro.yoric.it.company.pojo.Payslip"/>
     </session-factory>

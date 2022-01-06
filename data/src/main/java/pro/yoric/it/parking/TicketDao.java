@@ -1,11 +1,17 @@
 package pro.yoric.it.parking;
 
-import org.springframework.stereotype.Repository;
 import pro.yoric.it.dao.ITicketDao;
-import pro.yoric.it.data.DataSource;
+
 import pro.yoric.it.parking.pojo.Ticket;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+
+import org.springframework.stereotype.Repository;
+
+import javax.sql.DataSource;
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,18 +23,22 @@ import java.util.Set;
 public class TicketDao
     implements ITicketDao
 {
+    @Autowired
+    @Qualifier("parkingDataSource")
+    private DataSource parkingDataSource;
+
     /** CREATE */
-    // CONSTRUCTORS
-    public TicketDao()
-        throws ClassNotFoundException
-    {
-        this(false);
-    }
-    public TicketDao(boolean useTestDataSource)
-            throws ClassNotFoundException
-    {
-        dataSource = new DataSource(useTestDataSource); // NOT NEED Class.forName("com.mysql.cj.jdbc.Driver");
-    }
+    // CONSTRUCTORS (WILL CREATE BY SPRING)
+//    public TicketDao()
+//        throws ClassNotFoundException
+//    {
+//        this(false);
+//    }
+//    public TicketDao(boolean useTestDataSource)
+//            throws ClassNotFoundException
+//    {
+//        dataSource = new DataSource(useTestDataSource); // NOT NEED Class.forName("com.mysql.cj.jdbc.Driver");
+//    }
 
     /** READ */
     // GETTERS
@@ -36,11 +46,12 @@ public class TicketDao
     public List<Ticket> readAllTickets()
         throws SQLException
     {
-        Connection con = dataSource.getConnection();
+        Connection connection = parkingDataSource.getConnection();
 
-        Statement st = con.createStatement();
-        ResultSet rs =
-            st.executeQuery(
+        Statement statement = connection.createStatement();
+
+        ResultSet resultSet =
+            statement.executeQuery(
                 "SELECT "        +
                     "* "        +
                 "FROM "         +
@@ -49,18 +60,18 @@ public class TicketDao
 
         List<Ticket> ticketList = new ArrayList<>();
 
-        while(rs.next())
+        while(resultSet.next())
         {
             Ticket ticket = new Ticket();
 
             ticket.setCarNumber(
-                rs.getString(
+                resultSet.getString(
                     "car_number"
                 )
             );
 
             ticket.setDate(
-                rs.getTimestamp(
+                resultSet.getTimestamp(
                     "ticket_date"
                 )
             );
@@ -68,16 +79,21 @@ public class TicketDao
             ticketList.add(ticket);
         }
 
-        st.close();
-        con.close();
-
+        statement.close();
+        connection.close();
         return ticketList;
     }
+
+    @Override
+    public List<Ticket> findByPersonId(Set<Long> ids) {
+        return null;
+    }
+
     @Override
     public Ticket       getTicketByNumber(String licensePlateNumber)
         throws SQLException
     {
-        Connection con = dataSource.getConnection();
+        Connection connection = parkingDataSource.getConnection();
 
         String sql =
             "SELECT "           +
@@ -87,32 +103,37 @@ public class TicketDao
             "WHERE "            +
                 "car_number = '?'";
 
-        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        PreparedStatement preparedStatement =
+            connection.prepareStatement(sql);
+
         preparedStatement.setString(
             1,
             licensePlateNumber
         );
 
-        ResultSet rs = preparedStatement.executeQuery();
+        ResultSet resultSets = preparedStatement.executeQuery();
 
         Ticket ticket = null;
 
-        if(rs.next())
+        if(resultSets.next())
         {
             ticket = new Ticket();
 
             ticket.setCarNumber(
-                rs.getString("car_number")
+                resultSets.getString(
+                    "car_number"
+                )
             );
             ticket.setDate(
-                rs.getTimestamp("ticket_date")
+                resultSets.getTimestamp(
+                    "ticket_date"
+                )
             );
         }
 
 //        preparedStatement.executeUpdate();
         preparedStatement.close();
-        con.close();
-
+        connection.close();
         return ticket;
     }
 
@@ -122,7 +143,7 @@ public class TicketDao
     public void saveNewTicket(Ticket ticket)
         throws SQLException
     {
-        Connection con = dataSource.getConnection();
+        Connection connection = parkingDataSource.getConnection();
 
 //        String sql =
 //            "INSERT INTO "             +
@@ -138,12 +159,12 @@ public class TicketDao
             "VALUES "           +
                 "(?, ?, ?)";
 
-        PreparedStatement preparedStatement = con.prepareStatement(sql);
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
         preparedStatement.setTimestamp(
             1,
             new Timestamp(
-                    ticket.getDate().getTime()
+                ticket.getDate().getTime()
             )
         );  // get Data & Time
         preparedStatement.setString(
@@ -157,7 +178,7 @@ public class TicketDao
 
         preparedStatement.executeUpdate();
         preparedStatement.close();
-        con.close();
+        connection.close();
     }
 
     /** DELETE */
@@ -165,7 +186,7 @@ public class TicketDao
     public void deleteAll()
         throws SQLException
     {
-        Connection connection = dataSource.getConnection();
+        Connection connection = parkingDataSource.getConnection();
 
         connection
         .prepareStatement(
@@ -179,27 +200,18 @@ public class TicketDao
     public void removeByNumber(String number)
         throws SQLException
     {
-        Connection connection = dataSource.getConnection();
+        Connection connection = parkingDataSource.getConnection();
 
         connection
         .prepareStatement(
             "DELETE FROM "       +
                 "t_tickets "     +
             "WHERE "             +
-                "car_number='"  +
-                    number      +
-                "'"
+                "car_number=\""  +  number +
+                "\""
         )
         .execute();
 
         connection.close();
     }
-
-    @Override
-    public List<Ticket> findByPersonId(Set<Long> ids) {
-        return null;
-    }
-
-    // FIELDS
-    private final DataSource dataSource;
 }

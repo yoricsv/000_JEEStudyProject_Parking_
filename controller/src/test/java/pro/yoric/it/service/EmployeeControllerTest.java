@@ -1,6 +1,6 @@
 package pro.yoric.it.service;
 
-import pro.yoric.it.config.ControllerSpringConfig;
+import pro.yoric.it.config.TestControllerSpringConfig;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @ContextConfiguration(
     classes = {
-        ControllerSpringConfig.class
+        TestControllerSpringConfig.class
     }
 )
 @RunWith(

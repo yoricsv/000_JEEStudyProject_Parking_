@@ -94,6 +94,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- MOCKiTo (create fake bean objects) -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- JUnit (unit tests) -->
         <dependency>
             <groupId>junit</groupId>

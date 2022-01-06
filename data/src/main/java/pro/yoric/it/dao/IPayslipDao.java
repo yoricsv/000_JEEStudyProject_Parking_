@@ -2,10 +2,11 @@ package pro.yoric.it.dao;
 
 import java.math.BigDecimal;
 
-public interface IPayslipDao {
+public interface IPayslipDao
+{
     // GETTERS
     BigDecimal getAnnualSalary(
-            String employeeId,
-            short year
+        String employeeId,
+        short  year
     );
 }

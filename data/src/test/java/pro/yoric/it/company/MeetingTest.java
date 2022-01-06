@@ -1,16 +1,18 @@
 package pro.yoric.it.company;
 
+import pro.yoric.it.company.pojo.Employee;
+import pro.yoric.it.company.pojo.Meeting;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 import java.io.Serializable;
+
 import java.util.Date;
 import java.util.List;
 
-import pro.yoric.it.company.pojo.Employee;
-import pro.yoric.it.company.pojo.Meeting;
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 public class MeetingTest
     extends BaseTest

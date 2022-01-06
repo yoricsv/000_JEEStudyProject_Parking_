@@ -1,7 +1,6 @@
 package pro.yoric.it.company.pojo;
 
 import org.hibernate.annotations.GenericGenerator;
-import pro.yoric.it.company.pojo.Employee;
 
 import javax.persistence.*;
 
@@ -32,12 +31,7 @@ public class Meeting
     private Date   meetingDate;
 
     // FIELDS RELATIONS
-    @OneToMany(
-        mappedBy  = "company"
-    )
-    private List<Employee> employees;
-
-    @OneToMany(
+    @ManyToMany(
         mappedBy  = "meetings"
     )
     private List<Employee> attendees;
@@ -65,9 +59,6 @@ public class Meeting
     public Date           getMeetingDate() {
         return meetingDate;
     }
-    public List<Employee> getEmployees() {
-        return employees;
-    }
     public List<Employee> getAttendees() {
         return attendees;
     }
@@ -79,9 +70,6 @@ public class Meeting
     }
     public void setMeetingDate(Date meetingDate) {
         this.meetingDate = meetingDate;
-    }
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
     public void setAttendees(List<Employee> attendees) {
         this.attendees = attendees;

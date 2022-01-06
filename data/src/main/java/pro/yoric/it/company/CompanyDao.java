@@ -1,11 +1,13 @@
 package pro.yoric.it.company;
 
+import pro.yoric.it.dao.ICompanySearchDao;
+
+import pro.yoric.it.company.pojo.Company;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Repository;
-import pro.yoric.it.company.pojo.Company;
-import pro.yoric.it.dao.ICompanySearchDao;
-import pro.yoric.it.data.SessionFactoryHolder;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -28,7 +30,8 @@ public class CompanyDao
     {
         Session session = sessionFactory.openSession();
 
-    // FIRST VARIATION
+        // FIRST VARIATION
+        /*language=HQL*/
         String query =
             "FROM "                 +
                 "Company c "        +  // HQL, not SQL! HQL works with a persistent object not a Table!!!
@@ -53,7 +56,7 @@ public class CompanyDao
             )
             .list();
 
-    // SECOND VARIATION
+        // SECOND VARIATION
 //        String query =
 //            "FROM "                 +
 //                "t_company c "      +

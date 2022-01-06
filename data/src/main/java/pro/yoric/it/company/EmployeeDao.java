@@ -1,11 +1,13 @@
 package pro.yoric.it.company;
 
+import pro.yoric.it.dao.IEmployeeDao;
+
+import pro.yoric.it.company.pojo.Employee;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
 import org.springframework.stereotype.Repository;
-import pro.yoric.it.company.pojo.Employee;
-import pro.yoric.it.dao.IEmployeeDao;
-import pro.yoric.it.data.SessionFactoryHolder;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -13,7 +15,7 @@ import org.hibernate.Transaction;
 
 @Repository
 public class EmployeeDao
-        implements IEmployeeDao
+    implements IEmployeeDao
 {
     // INSTANCES
     @Autowired
@@ -25,8 +27,10 @@ public class EmployeeDao
     @Override
     public boolean saveEmployee(Employee employee)
     {
-              Session     session     = sessionFactory.openSession();
-        final Transaction transaction = session.beginTransaction();
+        Session session = sessionFactory.openSession();
+
+        final Transaction transaction =
+            session.beginTransaction();
 
         try
         {
